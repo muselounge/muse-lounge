@@ -5,15 +5,23 @@
   <title>Muse Lounge</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #050506;
+      --bg: #050508;
+      --bg-soft: #0b0b12;
+      --bg-card: #101018;
       --text-main: #ffffff;
-      --text-muted: #e7e1da;
-      --accent: #f4d2b3;
-      --shadow-soft: 0 26px 60px rgba(0,0,0,0.65);
+      --text-muted: #d6d0c8;
+      --accent: #f2c8a4;
+      --accent-soft: #f7e2cf;
+      --border-subtle: rgba(255,255,255,0.08);
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --shadow-soft: 0 26px 60px rgba(0,0,0,0.7);
+      --transition-fast: 0.18s ease;
     }
 
     * {
@@ -24,14 +32,35 @@
 
     html, body {
       height: 100%;
+      background: #000;
+      color: var(--text-main);
     }
 
     body {
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #000;
-      color: var(--text-main);
-      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden; /* hero first, we enable later in JS */
     }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    /* APP SHELL */
+
+    .app-shell {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* ===== SCREENS (hero vs shop) ===== */
 
     .screen {
       position: absolute;
@@ -55,9 +84,9 @@
       transform: translateY(0);
     }
 
-    /* HERO (like your video) */
+    /* ===== HERO SCREEN ===== */
 
-    .hero {
+    #heroScreen {
       justify-content: flex-end;
       padding: 0 7vw 13vh;
       position: relative;
@@ -65,79 +94,80 @@
       overflow: hidden;
     }
 
-    .hero::before {
+    #heroScreen::before {
       content: "";
       position: absolute;
       inset: 0;
       background: url("hero.png") center center / cover no-repeat;
-      z-index: -2;
       transform: scale(1.03);
-      filter: saturate(1.05) contrast(1.05);
+      filter: saturate(1.05) contrast(1.06);
+      z-index: -2;
     }
 
-    .hero::after {
+    #heroScreen::after {
       content: "";
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at top, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.96) 100%);
+        radial-gradient(circle at top, rgba(0,0,0,0.22) 0, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.98) 100%);
       z-index: -1;
     }
 
     .hero-inner {
-      max-width: 480px;
+      max-width: 520px;
     }
 
     .hero-eyebrow {
       font-size: 0.8rem;
-      letter-spacing: 0.26em;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.72);
+      color: rgba(255,255,255,0.75);
       margin-bottom: 1.4rem;
     }
 
     .hero-title {
       font-family: "Playfair Display", serif;
-      font-size: clamp(2.6rem, 4vw, 3.4rem);
-      line-height: 1.06;
-      margin-bottom: 1.2rem;
+      font-size: clamp(2.6rem, 4vw, 3.5rem);
+      line-height: 1.05;
+      margin-bottom: 1.1rem;
     }
 
     .hero-subtitle {
-      font-size: 0.98rem;
-      line-height: 1.7;
+      font-size: 1rem;
+      line-height: 1.75;
       color: var(--text-muted);
-      max-width: 420px;
-      margin-bottom: 2.4rem;
+      max-width: 440px;
+      margin-bottom: 2.3rem;
     }
 
     .hero-actions {
       display: flex;
-      align-items: center;
-      gap: 1.2rem;
       flex-wrap: wrap;
+      gap: 1.2rem 1.7rem;
+      align-items: center;
     }
 
     .btn-main {
       appearance: none;
       border: none;
       cursor: pointer;
-      padding: 1rem 2.8rem;
+      padding: 1rem 2.9rem;
       border-radius: 999px;
       background: linear-gradient(135deg, #fef3e9, #f0caa2);
-      color: #231913;
+      color: #241813;
       font-weight: 600;
       font-size: 0.9rem;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.19em;
       text-transform: uppercase;
       display: inline-flex;
       align-items: center;
       gap: 0.55rem;
       box-shadow: var(--shadow-soft), 0 0 0 1px rgba(255,255,255,0.18);
       transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease,
-        filter 0.18s ease;
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        filter var(--transition-fast);
+      white-space: nowrap;
     }
 
     .btn-main span.arrow {
@@ -149,7 +179,7 @@
     .btn-main:hover {
       transform: translateY(-1px);
       filter: brightness(1.03);
-      box-shadow: 0 32px 70px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.22);
+      box-shadow: 0 32px 70px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.22);
     }
 
     .btn-main:hover .arrow {
@@ -157,20 +187,21 @@
     }
 
     .hero-note {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.8);
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.82);
+      max-width: 200px;
     }
 
     .hero-note strong {
       font-weight: 600;
     }
 
-    /* TRANSITION SCREEN: “Muse Lounge” */
+    /* ===== TRANSITION “MUSE LOUNGE” ===== */
 
     #transitionScreen {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at top, #201621 0, #050307 45%, #000 100%);
+      background: radial-gradient(circle at top, #231625 0, #050308 45%, #000 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -202,14 +233,14 @@
     @keyframes logo-pop {
       0% {
         opacity: 0;
-        transform: scale(0.85);
+        transform: scale(0.86);
         letter-spacing: 0.6em;
         filter: blur(6px);
       }
       50% {
         opacity: 1;
         transform: scale(1.03);
-        letter-spacing: 0.22em;
+        letter-spacing: 0.24em;
         filter: blur(0);
       }
       100% {
@@ -219,56 +250,228 @@
       }
     }
 
-    /* PRODUCTS SCREEN */
+    /* ===== SHOP SCREEN ===== */
 
-    .products {
-      background: radial-gradient(circle at top, #14131d 0, #050508 40%, #020204 100%);
-      padding: 4rem 6vw 4.5rem;
+    #shopScreen {
+      background: radial-gradient(circle at top, #161523 0, #050508 40%, #020204 100%);
+      padding: 4.1rem 6vw 4.5rem;
       overflow-y: auto;
     }
 
-    .products-header {
+    /* top bar inside shop */
+
+    .shop-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.4rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .shop-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .shop-brand-title {
+      font-family: "Playfair Display", serif;
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      font-size: 0.88rem;
+    }
+
+    .shop-brand-sub {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.72);
+    }
+
+    .shop-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .cart-pill {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.55rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(7,7,12,0.85);
+      backdrop-filter: blur(14px);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .cart-pill:hover {
+      background: rgba(14,14,20,0.95);
+      border-color: rgba(255,255,255,0.25);
+      transform: translateY(-1px);
+    }
+
+    .cart-count {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #f5cfaa;
+      color: #22140c;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .shop-chip {
+      font-size: 0.78rem;
+      border-radius: 999px;
+      padding: 0.4rem 1rem;
+      border: 1px solid rgba(255,255,255,0.18);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+    }
+
+    /* filter + sort bar */
+
+    .tools-bar {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      align-items: flex-end;
-      gap: 1.5rem;
-      margin-bottom: 2.8rem;
+      align-items: center;
+      gap: 1.4rem;
+      margin-bottom: 2.2rem;
     }
 
-    .products-header h2 {
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .filter-btn {
+      padding: 0.45rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(9,9,14,0.9);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .filter-btn span.dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(242,200,164,0.8);
+      margin-right: 0.45rem;
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(135deg, rgba(243,210,176,0.16), rgba(242,200,164,0.06));
+      border-color: rgba(242,200,164,0.85);
+      color: #fbeee0;
+      transform: translateY(-1px);
+    }
+
+    .sort-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .sort-select {
+      font-size: 0.82rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(9,9,16,0.95);
+      color: var(--text-main);
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* products grid */
+
+    .section-heading {
       font-family: "Playfair Display", serif;
       font-size: 2rem;
       margin-bottom: 0.4rem;
     }
 
-    .products-header p {
+    .section-sub {
       font-size: 0.94rem;
-      color: rgba(255,255,255,0.72);
-      max-width: 410px;
+      color: rgba(255,255,255,0.7);
+      max-width: 420px;
+      margin-bottom: 1.8rem;
     }
 
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.6rem;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.7rem;
+      margin-bottom: 3.1rem;
     }
 
     .product-card {
-      background: linear-gradient(140deg, #111119, #07070d);
-      border-radius: 1.1rem;
-      border: 1px solid rgba(255,255,255,0.06);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.78);
+      background: linear-gradient(145deg, #12121b, #07070d);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.82);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
 
     .product-card:hover {
       transform: translateY(-4px);
-      border-color: rgba(255,255,255,0.14);
-      box-shadow: 0 26px 60px rgba(0,0,0,0.9);
+      border-color: rgba(255,255,255,0.18);
+      box-shadow: 0 26px 60px rgba(0,0,0,0.95);
+      background: radial-gradient(circle at top, #181825, #06060b 55%);
+    }
+
+    .product-card::after {
+      content: "quick view";
+      position: absolute;
+      right: 0.9rem;
+      top: 0.9rem;
+      padding: 0.15rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      background: rgba(5,5,8,0.82);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.8);
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+    }
+
+    .product-card:hover::after {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .product-image-wrap {
@@ -283,7 +486,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transform: scale(1.03);
+      transform: scale(1.02);
       transition: transform 0.4s ease;
     }
 
@@ -299,14 +502,14 @@
     }
 
     .product-badge {
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
+      font-size: 0.74rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.6);
     }
 
     .product-name {
-      font-size: 0.96rem;
+      font-size: 0.98rem;
       font-weight: 500;
     }
 
@@ -326,18 +529,404 @@
     .pill {
       padding: 0.12rem 0.7rem;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.16);
       font-size: 0.7rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+    }
+
+    /* ===== ABOUT / HOW TO ORDER SECTION ===== */
+
+    .info-section {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 2.4rem;
+      padding: 2.1rem 2.1rem 2.2rem;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255,255,255,0.08);
+      background: radial-gradient(circle at top left, rgba(242,200,164,0.08), rgba(7,7,10,0.95) 55%);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.9);
+    }
+
+    .info-block-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .info-block-text {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .steps span {
+      opacity: 0.92;
+    }
+
+    .info-tagline {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
       color: rgba(255,255,255,0.75);
+      margin-bottom: 0.8rem;
+    }
+
+    .info-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .info-bullets li::before {
+      content: "•";
+      margin-right: 0.4rem;
+      color: var(--accent);
+    }
+
+    .wa-cta {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(7,7,10,0.9);
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .wa-cta span.icon {
+      font-size: 1.1rem;
+    }
+
+    .wa-cta:hover {
+      background: rgba(12,12,18,0.98);
+      border-color: rgba(245,207,170,0.9);
+      transform: translateY(-1px);
+    }
+
+    /* ===== QUICK VIEW MODAL ===== */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(0,0,0,0.75) 0, rgba(0,0,0,0.95) 55%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+      z-index: 90;
+      padding: 1.2rem;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .modal {
+      max-width: 860px;
+      width: 100%;
+      background: #08080d;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 34px 90px rgba(0,0,0,0.95);
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      overflow: hidden;
+    }
+
+    .modal-image {
+      position: relative;
+      background: #10101a;
+    }
+
+    .modal-image-inner {
+      position: relative;
+      padding-top: 120%;
+      overflow: hidden;
+    }
+
+    .modal-image-inner img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.05);
+    }
+
+    .modal-chip {
+      position: absolute;
+      left: 1.1rem;
+      top: 1.1rem;
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.55);
+      background: rgba(5,5,8,0.75);
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .modal-body {
+      padding: 1.5rem 1.7rem 1.7rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .modal-close {
+      align-self: flex-end;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      font-size: 1.2rem;
+      margin: -0.3rem -0.2rem 0.2rem 0;
+    }
+
+    .modal-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .modal-price {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #f7dfc4;
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-desc {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.84);
+      line-height: 1.7;
+      margin-bottom: 0.6rem;
+    }
+
+    .modal-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.7);
+      margin-top: 0.3rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .size-row {
+      display: flex;
+      gap: 0.45rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .size-pill {
+      padding: 0.32rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: transparent;
+      color: rgba(255,255,255,0.88);
+      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .size-pill.active {
+      background: #f2c8a4;
+      color: #20140e;
+      border-color: #f2c8a4;
+      transform: translateY(-1px);
+    }
+
+    .color-row {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .color-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .color-dot::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: inherit;
+      background: var(--dot-color, #fff);
+    }
+
+    .color-dot.active {
+      border-color: #f2c8a4;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 1rem;
+    }
+
+    .btn-bag,
+    .btn-wa {
+      flex: 1 1 140px;
+      padding: 0.75rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.22);
+      font-size: 0.84rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), color var(--transition-fast);
+    }
+
+    .btn-bag {
+      background: #f2c8a4;
+      color: #23130c;
+      border-color: #f2c8a4;
+      font-weight: 600;
+    }
+
+    .btn-bag:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+    }
+
+    .btn-wa {
+      background: transparent;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .btn-wa:hover {
+      background: rgba(17,17,24,0.95);
+      border-color: rgba(245,207,170,0.9);
+      transform: translateY(-1px);
+    }
+
+    .modal-footnote {
+      margin-top: 0.9rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ===== MINI BAG PANEL ===== */
+
+    .bag-panel {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 270px;
+      max-height: 260px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(8,8,13,0.96);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.95);
+      padding: 0.9rem 1rem 1rem;
+      font-size: 0.86rem;
+      display: none;
+      z-index: 80;
+      backdrop-filter: blur(16px);
+    }
+
+    .bag-panel.visible {
+      display: block;
+    }
+
+    .bag-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .bag-list {
+      max-height: 140px;
+      overflow-y: auto;
+      padding-right: 0.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .bag-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .bag-item span.qty {
+      opacity: 0.8;
+      font-size: 0.8rem;
+    }
+
+    .bag-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.1rem;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.78);
+    }
+
+    .bag-link {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      cursor: pointer;
+      opacity: 0.9;
+    }
+
+    .bag-link:hover {
+      opacity: 1;
+    }
+
+    /* ===== RESPONSIVE ===== */
+
+    @media (max-width: 900px) {
+      .modal {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-image-inner {
+        padding-top: 95%;
+      }
     }
 
     @media (max-width: 768px) {
-      .hero {
-        padding: 0 1.6rem 4rem;
-        justify-content: flex-end;
+      #heroScreen {
+        padding: 0 1.6rem 4.2rem;
         text-align: center;
+        justify-content: flex-end;
       }
 
       .hero-inner {
@@ -352,193 +941,615 @@
         justify-content: center;
       }
 
-      .products {
-        padding: 3.2rem 1.6rem 3.6rem;
+      #shopScreen {
+        padding: 3.1rem 1.5rem 3.7rem;
+      }
+
+      .shop-header {
+        align-items: flex-start;
+      }
+
+      .info-section {
+        grid-template-columns: 1fr;
+        padding: 1.6rem 1.5rem 1.9rem;
+      }
+
+      .bag-panel {
+        right: 0.8rem;
+        left: 0.8rem;
+        width: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tools-bar {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
   </style>
 </head>
 <body>
-  <!-- HERO SCREEN -->
-  <section id="heroScreen" class="screen hero active">
-    <div class="hero-inner">
-      <div class="hero-eyebrow">NEW • LOUNGE DROP</div>
-      <h1 class="hero-title">Embrace Your Everyday Muse</h1>
-      <p class="hero-subtitle">
-        Soft, minimal lounge sets for coffee runs, airport looks and nights in. Curated pieces only – no random stock.
-      </p>
-      <div class="hero-actions">
-        <button id="shopNowBtn" class="btn-main">
-          <span>Shop Now</span>
-          <span class="arrow">➜</span>
-        </button>
-        <p class="hero-note">
-          <strong>Muse Lounge</strong> · Local delivery across Lebanon
+  <div class="app-shell">
+    <!-- HERO SCREEN -->
+    <section id="heroScreen" class="screen active">
+      <div class="hero-inner">
+        <div class="hero-eyebrow">NEW • LOUNGE DROP</div>
+        <h1 class="hero-title">Embrace Your Everyday Muse</h1>
+        <p class="hero-subtitle">
+          Soft, minimal lounge sets for coffee runs, airport looks and nights in. Curated pieces only – no random stock.
         </p>
+        <div class="hero-actions">
+          <button id="shopNowBtn" class="btn-main">
+            <span>Shop Now</span>
+            <span class="arrow">➜</span>
+          </button>
+          <p class="hero-note">
+            <strong>Muse Lounge</strong> · Local delivery across Lebanon
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOP SCREEN -->
+    <section id="shopScreen" class="screen">
+      <header class="shop-header">
+        <div class="shop-brand">
+          <span class="shop-brand-title">muse lounge</span>
+          <span class="shop-brand-sub">Curated women's lounge sets · limited pieces</span>
+        </div>
+        <div class="shop-right">
+          <span class="shop-chip">drops 01 · winter lounge</span>
+          <div id="cartPill" class="cart-pill">
+            <span>Bag</span>
+            <span id="cartCount" class="cart-count">0</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- FILTER + SORT -->
+      <div class="tools-bar">
+        <div>
+          <h2 class="section-heading">Lounge Sets</h2>
+          <p class="section-sub">Eight easy outfits built around comfort and clean lines. Pick your colour and you’re ready to go.</p>
+        </div>
+        <div class="sort-wrap">
+          <span>Sort</span>
+          <select id="sortSelect" class="sort-select">
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price · Low to High</option>
+            <option value="price-desc">Price · High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filters">
+        <button class="filter-btn active" data-filter-button data-filter="all">
+          <span class="dot"></span>All sets
+        </button>
+        <button class="filter-btn" data-filter-button data-filter="wide">
+          <span class="dot"></span>Wide leg
+        </button>
+        <button class="filter-btn" data-filter-button data-filter="fleece">
+          <span class="dot"></span>Fleece / cozy
+        </button>
+        <button class="filter-btn" data-filter-button data-filter="zip">
+          <span class="dot"></span>Zip hoodies
+        </button>
+      </div>
+
+      <!-- PRODUCTS GRID -->
+      <div id="productsGrid" class="products-grid">
+        <!-- 1: product1.png -->
+        <article class="product-card"
+                 data-product-card
+                 data-category="wide"
+                 data-name="Black Minimal Lounge Set"
+                 data-price="39"
+                 data-image="product1.png"
+                 data-color="Black"
+                 data-tag="Wide leg set">
+          <div class="product-image-wrap">
+            <img src="product1.png" alt="Black wide-leg lounge set">
+          </div>
+          <div class="product-body">
+            <p class="product-badge">wide leg set</p>
+            <h3 class="product-name">Black Minimal Lounge Set</h3>
+            <div class="product-meta">
+              <span class="price">$39</span>
+              <span class="pill">best seller</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2: product2.png -->
+        <article class="product-card"
+                 data-product-card
+                 data-category="wide"
+                 data-name="Charcoal Coffee Run Set"
+                 data-price="37"
+                 data-image="product2.png"
+                 data-color="Charcoal"
+                 data-tag="Wide leg set">
+          <div class="product-image-wrap">
+            <img src="product2.png" alt="Charcoal lounge set">
+          </div>
+          <div class="product-body">
+            <p class="product-badge">wide leg set</p>
+            <h3 class="product-name">Charcoal Coffee Run Set</h3>
+            <div class="product-meta">
+              <span class="price">$37</span>
+              <span class="pill">soft touch</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3: product3.png -->
+        <article class="product-card"
+                 data-product-card
+                 data-category="fleece"
+                 data-name="Heather Grey Cozy Set"
+                 data-price="35"
+                 data-image="product3.png"
+                 data-color="Heather Grey"
+                 data-tag="Fleece set">
+          <div class="product-image-wrap">
+            <img src="product3.png" alt="Grey fleece lounge set">
+          </div>
+          <div class="product-body">
+            <p class="product-badge">fleece set</p>
+            <h3 class="product-name">Heather Grey Cozy Set</h3>
+            <div class="product-meta">
+              <span class="price">$35</span>
+              <span class="pill">everyday</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4: product4.png -->
+        <article class="product-card"
+                 data-product-card
+                 data-category="fleece"
+                 data-name="Mocha Sunday Set"
+                 data-price="39"
+                 data-image="product4.png"
+                 data-color="Mocha"
+                 data-tag="Fleece set">
+          <div class="product-image-wrap">
+            <img src="product4.png" alt="Brown fleece lounge set">
+          </div>
+          <div class="product-body">
+            <p class="product-badge">fleece set</p>
+            <h3 class="product-name">Mocha Sunday Set</h3>
+            <div class="product-meta">
+              <span class="price">$39</span>
+              <span class="pill">warm tone</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5: product5.png -->
+        <article class="product-card"
+                 data-product-card
+                 data-category="logo"
+                 data-name="Black Signature Logo Set"
+                 data-price="42"
+                 data-image="product5.png"
+                 data-color="Black"
+                 data-tag="Logo set">
+          <div class="product-image-wrap">
+            <img src="product5.png" alt="Black logo lounge set">
+          </div>
+          <div class="product-body">
+            <p class="product-badge">logo set</p>
+            <h3 class="product-name">Black Signature Logo Set</h3>
+            <div class="product-meta">
+              <span class="price">$42</span>
+              <span class="pill">limited</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7: product7.png -->
+        <article class="product-card"
+                 data-product-card
+                 data-category="zip"
+                 data-name="Cloud Grey Zip Set"
+                 data-price="45"
+                 data-image="product7.png"
+                 data-color="Cloud Grey"
+                 data-tag="Zip hoodie set">
+          <div class="product-image-wrap">
+            <img src="product7.png" alt="Grey zip hoodie lounge set">
+          </div>
+          <div class="product-body">
+            <p class="product-badge">zip hoodie set</p>
+            <h3 class="product-name">Cloud Grey Zip Set</h3>
+            <div class="product-meta">
+              <span class="price">$45</span>
+              <span class="pill">oversized</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 8: product8.png -->
+        <article class="product-card"
+                 data-product-card
+                 data-category="zip"
+                 data-name="Jet Black Zip Lounge Set"
+                 data-price="43"
+                 data-image="product8.png"
+                 data-color="Jet Black"
+                 data-tag="Zip hoodie set">
+          <div class="product-image-wrap">
+            <img src="product8.png" alt="Black zip hoodie lounge set">
+          </div>
+          <div class="product-body">
+            <p class="product-badge">zip hoodie set</p>
+            <h3 class="product-name">Jet Black Zip Lounge Set</h3>
+            <div class="product-meta">
+              <span class="price">$43</span>
+              <span class="pill">airport look</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- ABOUT / HOW TO ORDER -->
+      <section class="info-section">
+        <div>
+          <div class="info-tagline">about the drop</div>
+          <h3 class="info-block-title">Built for coffee runs & late nights</h3>
+          <p class="info-block-text">
+            Muse Lounge is an online-only closet: premium-feel sets, neutral colours, and fits that actually sit right.
+            Each piece is handpicked, not random factory stock – so quantities are limited per colour and size.
+          </p>
+          <div class="steps">
+            <span><strong>1.</strong> Tap on any set to open quick view.</span>
+            <span><strong>2.</strong> Choose your size and colour.</span>
+            <span><strong>3.</strong> Hit “Order on WhatsApp” and send – we confirm stock & delivery time.</span>
+          </div>
+        </div>
+        <div>
+          <h4 class="info-block-title">Fabric & care</h4>
+          <ul class="info-bullets">
+            <li>Soft-touch blends chosen for comfort and drape.</li>
+            <li>Most styles are true-to-size with a relaxed fit.</li>
+            <li>Machine wash cold, low spin, hang to dry.</li>
+            <li>No heavy logos – clean, minimal details only.</li>
+          </ul>
+          <button class="wa-cta" id="globalWhatsApp">
+            <span class="icon">💬</span>
+            <span>Chat with Muse Lounge on WhatsApp</span>
+          </button>
+        </div>
+      </section>
+    </section>
+
+    <!-- TRANSITION LOGO -->
+    <div id="transitionScreen">
+      <div class="transition-logo">MUSE LOUNGE</div>
+    </div>
+
+    <!-- QUICK VIEW MODAL -->
+    <div id="modalBackdrop" class="modal-backdrop">
+      <div class="modal">
+        <div class="modal-image">
+          <div class="modal-image-inner">
+            <img id="modalImage" src="" alt="">
+          </div>
+          <div id="modalTag" class="modal-chip"></div>
+        </div>
+        <div class="modal-body">
+          <button id="modalClose" class="modal-close" aria-label="Close">✕</button>
+          <h3 id="modalTitle" class="modal-title"></h3>
+          <div id="modalPrice" class="modal-price"></div>
+          <p id="modalDesc" class="modal-desc"></p>
+
+          <div>
+            <div class="modal-label">sizes</div>
+            <div id="sizeRow" class="size-row">
+              <button class="size-pill" data-size="S">S</button>
+              <button class="size-pill" data-size="M">M</button>
+              <button class="size-pill" data-size="L">L</button>
+              <button class="size-pill" data-size="XL">XL</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="modal-label">colour</div>
+            <div id="colorRow" class="color-row">
+              <!-- we set via JS depending on product colour family -->
+              <button class="color-dot" data-color="light" style="--dot-color:#d4d4d8;"></button>
+              <button class="color-dot" data-color="mid" style="--dot-color:#4b4b56;"></button>
+              <button class="color-dot" data-color="dark" style="--dot-color:#111111;"></button>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button id="addToBagBtn" class="btn-bag">
+              <span>+ Add to bag</span>
+            </button>
+            <button id="waOrderBtn" class="btn-wa">
+              <span>Order on WhatsApp</span>
+            </button>
+          </div>
+
+          <p class="modal-footnote">
+            Delivery inside Lebanon. Cash on delivery available in most areas.
+          </p>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- PRODUCTS SCREEN -->
-  <section id="productsScreen" class="screen products">
-    <div class="products-header">
-      <div>
-        <h2>Muse Lounge Sets</h2>
-        <p>Eight easy outfits built around comfort and clean lines. Pick your colour and you’re ready to go.</p>
+    <!-- MINI BAG PANEL -->
+    <aside id="bagPanel" class="bag-panel">
+      <div class="bag-header">
+        <strong>Your bag</strong>
+        <span id="bagClose" class="bag-link">close</span>
       </div>
-    </div>
-
-    <div class="products-grid">
-      <!-- 1 -->
-      <article class="product-card">
-        <div class="product-image-wrap">
-          <img src="product1.png" alt="Black wide-leg lounge set" loading="lazy">
-        </div>
-        <div class="product-body">
-          <p class="product-badge">wide leg set</p>
-          <h3 class="product-name">Black Minimal Lounge Set</h3>
-          <div class="product-meta">
-            <span class="price">$39</span>
-            <span class="pill">best seller</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 2 -->
-      <article class="product-card">
-        <div class="product-image-wrap">
-          <img src="product2.png" alt="Charcoal wide-leg lounge set" loading="lazy">
-        </div>
-        <div class="product-body">
-          <p class="product-badge">wide leg set</p>
-          <h3 class="product-name">Charcoal Coffee Run Set</h3>
-          <div class="product-meta">
-            <span class="price">$37</span>
-            <span class="pill">soft touch</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 3 -->
-      <article class="product-card">
-        <div class="product-image-wrap">
-          <img src="product3.png" alt="Grey sweatshirt lounge set" loading="lazy">
-        </div>
-        <div class="product-body">
-          <p class="product-badge">fleece set</p>
-          <h3 class="product-name">Heather Grey Cozy Set</h3>
-          <div class="product-meta">
-            <span class="price">$35</span>
-            <span class="pill">everyday</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 4 -->
-      <article class="product-card">
-        <div class="product-image-wrap">
-          <img src="product4.png" alt="Brown sweatshirt lounge set" loading="lazy">
-        </div>
-        <div class="product-body">
-          <p class="product-badge">fleece set</p>
-          <h3 class="product-name">Mocha Sunday Set</h3>
-          <div class="product-meta">
-            <span class="price">$39</span>
-            <span class="pill">warm tone</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 5 -->
-      <article class="product-card">
-        <div class="product-image-wrap">
-          <img src="product5.png" alt="Black logo lounge set" loading="lazy">
-        </div>
-        <div class="product-body">
-          <p class="product-badge">logo set</p>
-          <h3 class="product-name">Black Signature Logo Set</h3>
-          <div class="product-meta">
-            <span class="price">$42</span>
-            <span class="pill">limited</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 6 -->
-      <article class="product-card">
-        <div class="product-image-wrap">
-          <img src="product6.png" alt="Charcoal logo lounge set" loading="lazy">
-        </div>
-        <div class="product-body">
-          <p class="product-badge">logo set</p>
-          <h3 class="product-name">Charcoal Logo Lounge Set</h3>
-          <div class="product-meta">
-            <span class="price">$41</span>
-            <span class="pill">new</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 7 -->
-      <article class="product-card">
-        <div class="product-image-wrap">
-          <img src="product7.png" alt="Grey zip hoodie lounge set" loading="lazy">
-        </div>
-        <div class="product-body">
-          <p class="product-badge">zip hoodie set</p>
-          <h3 class="product-name">Cloud Grey Zip Set</h3>
-          <div class="product-meta">
-            <span class="price">$45</span>
-            <span class="pill">oversized</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 8 -->
-      <article class="product-card">
-        <div class="product-image-wrap">
-          <img src="product8.png" alt="Black zip hoodie lounge set" loading="lazy">
-        </div>
-        <div class="product-body">
-          <p class="product-badge">zip hoodie set</p>
-          <h3 class="product-name">Jet Black Zip Lounge Set</h3>
-          <div class="product-meta">
-            <span class="price">$43</span>
-            <span class="pill">airport look</span>
-          </div>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- TRANSITION -->
-  <div id="transitionScreen">
-    <div class="transition-logo">MUSE LOUNGE</div>
+      <div id="bagList" class="bag-list"></div>
+      <div class="bag-footer">
+        <span id="bagSummary">0 items</span>
+        <span id="bagWhatsApp" class="bag-link">send via WhatsApp</span>
+      </div>
+    </aside>
   </div>
 
   <script>
-    const heroScreen = document.getElementById('heroScreen');
-    const productsScreen = document.getElementById('productsScreen');
-    const transitionScreen = document.getElementById('transitionScreen');
-    const shopBtn = document.getElementById('shopNowBtn');
+    // --------- BASIC ELEMENTS ----------
+    const heroScreen = document.getElementById("heroScreen");
+    const shopScreen = document.getElementById("shopScreen");
+    const transitionScreen = document.getElementById("transitionScreen");
+    const shopBtn = document.getElementById("shopNowBtn");
 
-    shopBtn.addEventListener('click', () => {
-      // show transition logo
-      transitionScreen.classList.add('active');
+    const filterButtons = document.querySelectorAll("[data-filter-button]");
+    const productsGrid = document.getElementById("productsGrid");
+    const productCards = () => Array.from(document.querySelectorAll("[data-product-card]"));
+    const sortSelect = document.getElementById("sortSelect");
 
-      // after logo appears, switch to products screen
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalImage = document.getElementById("modalImage");
+    const modalTag = document.getElementById("modalTag");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalPrice = document.getElementById("modalPrice");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalClose = document.getElementById("modalClose");
+    const sizeRow = document.getElementById("sizeRow");
+    const colorRow = document.getElementById("colorRow");
+    const addToBagBtn = document.getElementById("addToBagBtn");
+    const waOrderBtn = document.getElementById("waOrderBtn");
+
+    const cartPill = document.getElementById("cartPill");
+    const cartCountEl = document.getElementById("cartCount");
+    const bagPanel = document.getElementById("bagPanel");
+    const bagList = document.getElementById("bagList");
+    const bagSummary = document.getElementById("bagSummary");
+    const bagClose = document.getElementById("bagClose");
+    const bagWhatsApp = document.getElementById("bagWhatsApp");
+    const globalWhatsApp = document.getElementById("globalWhatsApp");
+
+    const WHATSAPP_NUMBER = "96181414496"; // without +
+
+    let currentProduct = null;
+    let currentSize = null;
+    let currentColorChoice = null;
+
+    const bagItems = [];
+
+    // --------- HERO → SHOP TRANSITION ----------
+    shopBtn.addEventListener("click", () => {
+      transitionScreen.classList.add("active");
+
       setTimeout(() => {
-        heroScreen.classList.remove('active');
-        productsScreen.classList.add('active');
-        // allow scrolling on products
-        document.body.style.overflow = 'auto';
+        heroScreen.classList.remove("active");
+        shopScreen.classList.add("active");
+        document.body.style.overflow = "auto";
       }, 900);
 
-      // hide transition
       setTimeout(() => {
-        transitionScreen.classList.remove('active');
+        transitionScreen.classList.remove("active");
       }, 1600);
     });
+
+    // --------- FILTERS ----------
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const filter = btn.dataset.filter;
+        filterButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        productCards().forEach(card => {
+          const category = card.dataset.category;
+          if (filter === "all" || category === filter || (filter === "fleece" && category === "logo")) {
+            card.style.display = "";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    });
+
+    // --------- SORT ----------
+    sortSelect.addEventListener("change", () => {
+      const value = sortSelect.value;
+      const cards = productCards().filter(card => card.style.display !== "none");
+
+      const sorted = cards.slice().sort((a, b) => {
+        const priceA = Number(a.dataset.price);
+        const priceB = Number(b.dataset.price);
+
+        if (value === "price-asc") return priceA - priceB;
+        if (value === "price-desc") return priceB - priceA;
+        return 0; // featured (no change)
+      });
+
+      sorted.forEach(card => productsGrid.appendChild(card));
+    });
+
+    // --------- OPEN MODAL ----------
+    productsGrid.addEventListener("click", (e) => {
+      const card = e.target.closest("[data-product-card]");
+      if (!card) return;
+
+      const name = card.dataset.name;
+      const price = Number(card.dataset.price);
+      const img = card.dataset.image;
+      const color = card.dataset.color || "";
+      const tag = card.dataset.tag || "";
+
+      currentProduct = { name, price, img, color, tag };
+
+      modalImage.src = img;
+      modalImage.alt = name;
+      modalTag.textContent = tag || "Muse Lounge";
+      modalTitle.textContent = name;
+      modalPrice.textContent = "$" + price;
+      modalDesc.textContent =
+        "Relaxed fit lounge set in a soft-touch blend. Perfect for coffee runs, home days and late drives. Model is wearing a size M.";
+
+      // reset size + colour
+      currentSize = null;
+      currentColorChoice = null;
+      sizeRow.querySelectorAll(".size-pill").forEach(p => p.classList.remove("active"));
+      colorRow.querySelectorAll(".color-dot").forEach(p => p.classList.remove("active"));
+
+      modalBackdrop.classList.add("active");
+    });
+
+    function closeModal() {
+      modalBackdrop.classList.remove("active");
+    }
+
+    modalClose.addEventListener("click", closeModal);
+    modalBackdrop.addEventListener("click", (e) => {
+      if (e.target === modalBackdrop) closeModal();
+    });
+
+    // --------- SIZE / COLOR SELECTION ----------
+    sizeRow.addEventListener("click", (e) => {
+      const pill = e.target.closest(".size-pill");
+      if (!pill) return;
+      sizeRow.querySelectorAll(".size-pill").forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      currentSize = pill.dataset.size;
+    });
+
+    colorRow.addEventListener("click", (e) => {
+      const dot = e.target.closest(".color-dot");
+      if (!dot) return;
+      colorRow.querySelectorAll(".color-dot").forEach(d => d.classList.remove("active"));
+      dot.classList.add("active");
+      currentColorChoice = dot.dataset.color;
+    });
+
+    // --------- BAG LOGIC ----------
+    function updateBagUI() {
+      cartCountEl.textContent = bagItems.reduce((sum, item) => sum + item.qty, 0);
+
+      bagList.innerHTML = "";
+      bagItems.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "bag-item";
+        div.innerHTML = `
+          <span>${item.name}${item.size ? " (" + item.size + ")" : ""}</span>
+          <span class="qty">×${item.qty}</span>
+        `;
+        bagList.appendChild(div);
+      });
+
+      const totalItems = bagItems.reduce((sum, item) => sum + item.qty, 0);
+      const totalPrice = bagItems.reduce((sum, item) => sum + item.qty * item.price, 0);
+
+      bagSummary.textContent = totalItems === 0
+        ? "Bag is empty"
+        : `${totalItems} item${totalItems > 1 ? "s" : ""} · ~$${totalPrice}`;
+    }
+
+    addToBagBtn.addEventListener("click", () => {
+      if (!currentProduct) return;
+
+      const sizeLabel = currentSize || "Free";
+      const key = currentProduct.name + "|" + sizeLabel;
+      let entry = bagItems.find(i => i.key === key);
+
+      if (!entry) {
+        entry = {
+          key,
+          name: currentProduct.name,
+          size: sizeLabel,
+          price: currentProduct.price,
+          qty: 0
+        };
+        bagItems.push(entry);
+      }
+      entry.qty += 1;
+
+      updateBagUI();
+      bagPanel.classList.add("visible");
+    });
+
+    cartPill.addEventListener("click", () => {
+      if (bagPanel.classList.contains("visible")) {
+        bagPanel.classList.remove("visible");
+      } else {
+        bagPanel.classList.add("visible");
+      }
+    });
+
+    bagClose.addEventListener("click", () => {
+      bagPanel.classList.remove("visible");
+    });
+
+    // --------- WHATSAPP HELPERS ----------
+    function buildProductLine(p) {
+      return `• ${p.name}${p.size ? " (" + p.size + ")" : ""} - $${p.price} x${p.qty}`;
+    }
+
+    function openWhatsApp(message) {
+      const url =
+        `https://wa.me/${WHATSAPP_NUMBER}?text=` +
+        encodeURIComponent(message);
+      window.location.href = url;
+    }
+
+    waOrderBtn.addEventListener("click", () => {
+      if (!currentProduct) return;
+      const sizeText = currentSize ? currentSize : "size to be confirmed";
+
+      const msg =
+        `Hi! I'd like to order this set from Muse Lounge:\n\n` +
+        `Product: ${currentProduct.name}\n` +
+        `Approx. price: $${currentProduct.price}\n` +
+        `Size: ${sizeText}\n` +
+        `Colour family: ${currentProduct.color || "neutral"}\n\n` +
+        `Can you confirm availability and delivery time?`;
+
+      openWhatsApp(msg);
+    });
+
+    globalWhatsApp.addEventListener("click", () => {
+      openWhatsApp("Hi! I saw Muse Lounge online and I have a question about the lounge sets.");
+    });
+
+    bagWhatsApp.addEventListener("click", () => {
+      if (bagItems.length === 0) {
+        openWhatsApp("Hi! I'd like to see the available Muse Lounge sets.");
+        return;
+      }
+      const lines = bagItems.map(buildProductLine).join("\n");
+      const msg =
+        `Hi! I'd like to order these Muse Lounge sets:\n\n${lines}\n\n` +
+        `Please confirm total, sizes and delivery time.`;
+      openWhatsApp(msg);
+    });
+
+    // small init
+    updateBagUI();
   </script>
 </body>
 </html>
