@@ -30,7 +30,75 @@
       padding: 10px 14px 80px;
     }
 
-    /* top nav like Irrelevant */
+    /* ===== INTRO 3D LETTER ANIMATION ===== */
+
+    .intro-overlay{
+      position:fixed;
+      inset:0;
+      background:#ffeef9;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:40;
+      animation:introFade 1.9s ease-out forwards;
+    }
+
+    .intro-name{
+      font-family:"Times New Roman", "Georgia", serif;
+      text-transform:uppercase;
+      letter-spacing:0.25em;
+      font-size:22px;
+      color:#ff7fb8;
+      perspective:900px;
+      transform-style:preserve-3d;
+    }
+
+    .intro-letter{
+      display:inline-block;
+      opacity:0;
+      transform:translateY(40px) rotateX(80deg);
+      text-shadow:
+        0 1px 0 rgba(255,255,255,0.6),
+        0 4px 8px rgba(0,0,0,0.25);
+      animation:letterDrop3D .8s cubic-bezier(.22,1,.26,1) forwards;
+    }
+
+    /* staggered delays for MUSE LOUNGE */
+    .intro-letter:nth-child(1){animation-delay:0s}
+    .intro-letter:nth-child(2){animation-delay:.05s}
+    .intro-letter:nth-child(3){animation-delay:.10s}
+    .intro-letter:nth-child(4){animation-delay:.15s}
+    .intro-letter:nth-child(5){animation-delay:.20s}
+    .intro-letter:nth-child(6){animation-delay:.25s}
+    .intro-letter:nth-child(7){animation-delay:.30s}
+    .intro-letter:nth-child(8){animation-delay:.35s}
+    .intro-letter:nth-child(9){animation-delay:.40s}
+    .intro-letter:nth-child(10){animation-delay:.45s}
+    .intro-letter:nth-child(11){animation-delay:.50s}
+
+    @keyframes letterDrop3D{
+      0%{
+        opacity:0;
+        transform:translateY(40px) rotateX(80deg) scale(.9);
+      }
+      70%{
+        opacity:1;
+        transform:translateY(-4px) rotateX(0deg) scale(1.03);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0) rotateX(0deg) scale(1);
+      }
+    }
+
+    @keyframes introFade{
+      0%{opacity:1}
+      80%{opacity:1}
+      100%{opacity:0;visibility:hidden}
+    }
+
+    /* ===== TOP NAV (Irrelevant style) ===== */
+
     .top-nav{
       display:flex;align-items:center;justify-content:space-between;
       padding:6px 0 10px;
@@ -79,7 +147,8 @@
     .filter-lines::after{bottom:4px}
     .filter-right{color:var(--text-soft);}
 
-    /* grid 2 columns */
+    /* ===== PRODUCT GRID ===== */
+
     .product-grid{
       display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
       column-gap:14px;row-gap:30px;
@@ -114,6 +183,23 @@
   </style>
 </head>
 <body>
+  <!-- 3D LETTER INTRO -->
+  <div class="intro-overlay">
+    <div class="intro-name">
+      <span class="intro-letter">M</span>
+      <span class="intro-letter">U</span>
+      <span class="intro-letter">S</span>
+      <span class="intro-letter">E</span>
+      <span class="intro-letter">&nbsp;</span>
+      <span class="intro-letter">L</span>
+      <span class="intro-letter">O</span>
+      <span class="intro-letter">U</span>
+      <span class="intro-letter">N</span>
+      <span class="intro-letter">G</span>
+      <span class="intro-letter">E</span>
+    </div>
+  </div>
+
   <div class="page">
     <!-- top nav -->
     <header class="top-nav">
