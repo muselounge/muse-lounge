@@ -16,7 +16,7 @@
       --accent-pink: #ff6aa2;
       --accent-soft: #ffcde4;
       --radius-card: 22px;
-      --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.08);
+      --shadow-soft: 0 18px 50px rgba(0, 0, 0, 0.08);
     }
 
     * {
@@ -28,7 +28,8 @@
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         sans-serif;
-      background: radial-gradient(circle at top, #ffe9f5, #fff5fb 55%, #ffffff);
+      background:
+        radial-gradient(circle at top, #ffe0f1, #fff5fb 55%, #ffffff);
       color: var(--text-main);
       overflow-x: hidden;
     }
@@ -53,11 +54,12 @@
 
     .intro-name {
       font-family: "Times New Roman", "Georgia", serif;
-      font-size: 28px;
-      letter-spacing: 0.35em;
+      font-size: 26px;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
       text-align: center;
       white-space: nowrap;
+      padding: 0 12px;
     }
 
     .intro-letter {
@@ -71,17 +73,18 @@
       animation: letterDrop 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
     }
 
+    /* MUSE (1–4), space (5), LOUNGE (6–11) */
     .intro-letter:nth-child(1) { animation-delay: 0s; }
     .intro-letter:nth-child(2) { animation-delay: 0.05s; }
     .intro-letter:nth-child(3) { animation-delay: 0.10s; }
     .intro-letter:nth-child(4) { animation-delay: 0.15s; }
-    .intro-letter:nth-child(5) { animation-delay: 0.25s; }
-    .intro-letter:nth-child(6) { animation-delay: 0.30s; }
-    .intro-letter:nth-child(7) { animation-delay: 0.35s; }
-    .intro-letter:nth-child(8) { animation-delay: 0.40s; }
-    .intro-letter:nth-child(9) { animation-delay: 0.45s; }
-    .intro-letter:nth-child(10){ animation-delay: 0.50s; }
-    .intro-letter:nth-child(11){ animation-delay: 0.55s; }
+    .intro-letter:nth-child(5) { animation-delay: 0.20s; } /* space */
+    .intro-letter:nth-child(6) { animation-delay: 0.25s; }
+    .intro-letter:nth-child(7) { animation-delay: 0.30s; }
+    .intro-letter:nth-child(8) { animation-delay: 0.35s; }
+    .intro-letter:nth-child(9) { animation-delay: 0.40s; }
+    .intro-letter:nth-child(10){ animation-delay: 0.45s; }
+    .intro-letter:nth-child(11){ animation-delay: 0.50s; }
 
     @keyframes letterDrop {
       0% { opacity: 0; transform: translateY(-40px); }
@@ -92,6 +95,13 @@
       0% { opacity: 1; transform: scale(1); }
       70% { opacity: 1; transform: scale(1.02); }
       100% { opacity: 0; transform: scale(1.03); visibility: hidden; }
+    }
+
+    @media (max-width: 480px) {
+      .intro-name {
+        font-size: 22px;
+        letter-spacing: 0.16em;
+      }
     }
 
     /* PAGE LAYOUT */
@@ -230,12 +240,16 @@
       overflow: hidden;
       height: 180px;
       margin-bottom: 8px;
+      background: #f9f0f6;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
     .trend-image img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; /* show full outfit */
       display: block;
     }
 
@@ -274,7 +288,7 @@
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       border: 1px solid rgba(255, 106, 162, 0.4);
       color: var(--text-soft);
       flex: 0 0 auto;
@@ -308,6 +322,12 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.12);
     }
 
     .product-media {
@@ -315,18 +335,22 @@
       overflow: hidden;
       height: 260px;
       cursor: pointer;
+      background: #f9f0f6;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
     .product-media img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; /* show full outfit */
       display: block;
       transition: transform 0.4s ease;
     }
 
     .product-media:hover img {
-      transform: scale(1.04);
+      transform: scale(1.03);
     }
 
     @media (min-width: 860px) {
@@ -421,6 +445,13 @@
       box-shadow: 0 16px 32px rgba(13, 182, 82, 0.35);
     }
 
+    .whatsapp-btn span {
+      font-size: 11px;
+      text-transform: none;
+      letter-spacing: 0;
+      margin-left: 4px;
+    }
+
     .p-note {
       font-size: 12px;
       color: var(--text-soft);
@@ -498,7 +529,7 @@
     .product-modal {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.25);
       display: none;
       align-items: center;
       justify-content: center;
@@ -540,14 +571,18 @@
     .product-modal-media {
       border-radius: 18px;
       overflow: hidden;
-      height: 230px;
+      max-height: 70vh;
       margin-bottom: 10px;
+      background: #f9f0f6;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
     .product-modal-media img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;  /* full picture, no cut */
       display: block;
     }
 
@@ -726,7 +761,7 @@
           <div class="price-row">
             <div class="price">$40<span> · cash on delivery</span></div>
             <button class="whatsapp-btn" data-product="Grey Minimal Crew Set" data-price="40">
-              WhatsApp to order
+              BUY NOW <span>(WhatsApp)</span>
             </button>
           </div>
           <p class="p-note">Relaxed fit – stay true to size.</p>
@@ -758,7 +793,7 @@
           <div class="price-row">
             <div class="price">$39<span> · cash on delivery</span></div>
             <button class="whatsapp-btn" data-product="Classic Grey Zip Hoodie Set" data-price="39">
-              WhatsApp to order
+              BUY NOW <span>(WhatsApp)</span>
             </button>
           </div>
           <p class="p-note">Size down if you want it snug.</p>
@@ -789,7 +824,7 @@
           <div class="price-row">
             <div class="price">$40<span> · cash on delivery</span></div>
             <button class="whatsapp-btn" data-product="Black Minimal Crew Set" data-price="40">
-              WhatsApp to order
+              BUY NOW <span>(WhatsApp)</span>
             </button>
           </div>
           <p class="p-note">If between sizes, size up.</p>
@@ -821,7 +856,7 @@
           <div class="price-row">
             <div class="price">$41<span> · cash on delivery</span></div>
             <button class="whatsapp-btn" data-product="Black Zip Hoodie Set" data-price="41">
-              WhatsApp to order
+              BUY NOW <span>(WhatsApp)</span>
             </button>
           </div>
           <p class="p-note">Relaxed fit – size down for snug fit.</p>
@@ -853,7 +888,7 @@
           <div class="price-row">
             <div class="price">$45<span> · cash on delivery</span></div>
             <button class="whatsapp-btn" data-product="Mocha Brown Lounge Set" data-price="45">
-              WhatsApp to order
+              BUY NOW <span>(WhatsApp)</span>
             </button>
           </div>
           <p class="p-note">Crop top not included.</p>
@@ -884,7 +919,7 @@
           <div class="price-row">
             <div class="price">$43<span> · cash on delivery</span></div>
             <button class="whatsapp-btn" data-product="Full Black Zip Hoodie Set" data-price="43">
-              WhatsApp to order
+              BUY NOW <span>(WhatsApp)</span>
             </button>
           </div>
           <p class="p-note">Works with any sneakers.</p>
