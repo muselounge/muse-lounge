@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Product – Muse Lounge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --text-main:#111;
+      --text-soft:#999;
+      --accent:#ff3b30;
+      --border-soft:#eeeeee;
+      --whatsapp:#25d366;
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;
+      background:#ffffff;color:var(--text-main);
+    }
+    a{color:inherit;text-decoration:none;}
+
+    .page{max-width:960px;margin:0 auto;padding:10px 14px 80px;}
+
+    /* top nav */
+    .top-nav{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:6px 0 10px;
+    }
+    .icon-btn{border:none;background:transparent;padding:6px;
+      display:inline-flex;align-items:center;justify-content:center;}
+    .burger{width:18px;height:12px;position:relative;}
+    .burger span{position:absolute;left:0;right:0;height:1.5px;
+      background:#000;border-radius:999px;}
+    .burger span:nth-child(1){top:0}
+    .burger span:nth-child(2){top:5px}
+    .burger span:nth-child(3){bottom:0}
+    .nav-logo{
+      font-family:"Times New Roman",serif;
+      letter-spacing:0.22em;font-size:13px;text-transform:uppercase;
+    }
+    .nav-right{display:flex;align-items:center;gap:10px;}
+    .icon-circle{
+      width:20px;height:20px;border-radius:999px;border:1.2px solid #000;
+      display:flex;align-items:center;justify-content:center;font-size:11px;
+    }
+    .icon-cart{position:relative;width:20px;height:16px;border:1.5px solid #000;
+      border-radius:3px;}
+    .icon-cart::before,.icon-cart::after{
+      content:"";position:absolute;bottom:-3px;width:6px;height:6px;
+      border-radius:999px;border:1.3px solid #000;background:#fff;
+    }
+    .icon-cart::before{left:1px}
+    .icon-cart::after{right:1px}
+
+    /* main layout */
+    .main-grid{display:flex;flex-direction:column;gap:24px;}
+    @media(min-width:800px){
+      .main-grid{flex-direction:row;align-items:flex-start;}
+      .left-col{flex:1.1;}
+      .right-col{flex:0.9;padding-left:40px;}
+    }
+
+    .main-image{
+      width:100%;border:1px solid var(--border-soft);
+      display:flex;align-items:center;justify-content:center;
+      background:#fff;margin-bottom:16px;
+    }
+    .main-image img{
+      width:100%;max-height:420px;object-fit:contain;display:block;
+    }
+
+    .thumb-row{display:flex;gap:10px;justify-content:flex-start;}
+    .thumb{
+      flex:0 0 70px;height:70px;border:1px solid var(--border-soft);
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;background:#fff;
+    }
+    .thumb img{width:100%;height:100%;object-fit:contain;display:block;}
+    .thumb.active{border-color:#000;}
+
+    .product-name{
+      font-size:18px;text-transform:uppercase;
+      letter-spacing:0.1em;margin:0 0 6px;
+    }
+    .product-sub{font-size:13px;color:var(--text-soft);margin:0 0 10px;}
+
+    .price-row{
+      display:flex;align-items:baseline;gap:8px;margin-bottom:10px;
+      font-size:14px;
+    }
+    .old-price{text-decoration:line-through;color:var(--text-soft);}
+    .new-price{color:var(--accent);font-weight:600;}
+    .sale-pill{
+      font-size:11px;text-transform:uppercase;letter-spacing:0.16em;
+      padding:3px 10px;border:1px solid var(--accent);color:var(--accent);
+      border-radius:999px;
+    }
+
+    .size-label{
+      margin:18px 0 6px;font-size:12px;text-transform:uppercase;
+      letter-spacing:0.14em;color:var(--text-soft);
+    }
+    .size-row{
+      display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;
+    }
+    .size-btn{
+      min-width:50px;height:40px;border:1px solid var(--border-soft);
+      background:#fff;font-size:12px;text-transform:uppercase;
+      letter-spacing:0.12em;cursor:pointer;
+    }
+    .size-btn.active{
+      border-color:#000;background:#000;color:#fff;
+    }
+    .size-note{
+      font-size:12px;color:#ff9500;margin-bottom:18px;
+    }
+
+    .btn-primary{
+      width:100%;padding:14px 16px;margin-top:6px;
+      border:none;border-radius:0;background:#000;color:#fff;
+      font-size:13px;letter-spacing:0.18em;text-transform:uppercase;
+      cursor:pointer;
+    }
+    .btn-secondary{
+      width:100%;padding:12px 16px;margin-top:10px;
+      border:1px solid #000;border-radius:0;background:#fff;color:#000;
+      font-size:12px;letter-spacing:0.16em;text-transform:uppercase;
+      cursor:pointer;
+    }
+
+    .cart-note{
+      font-size:12px;color:var(--text-soft);margin-top:8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="top-nav">
+      <button class="icon-btn" onclick="window.location.href='shop.html'">
+        <div class="burger"><span></span><span></span><span></span></div>
+      </button>
+
+      <div class="nav-logo">MUSE LOUNGE</div>
+
+      <div class="nav-right">
+        <button class="icon-btn">
+          <div class="icon-circle">🔍</div>
+        </button>
+        <button class="icon-btn">
+          <div class="icon-cart"></div>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <div class="left-col">
+        <div class="main-image">
+          <img id="main-img" src="product1.png" alt="">
+        </div>
+        <div class="thumb-row" id="thumb-row"></div>
+      </div>
+
+      <div class="right-col">
+        <h1 class="product-name" id="p-name"></h1>
+        <p class="product-sub" id="p-sub"></p>
+
+        <div class="price-row">
+          <span class="old-price" id="p-old"></span>
+          <span class="new-price" id="p-new"></span>
+          <span class="sale-pill" id="p-pill"></span>
+        </div>
+
+        <div class="size-label">Size</div>
+        <div class="size-row" id="size-row"></div>
+        <div class="size-note" id="size-note"></div>
+
+        <button class="btn-primary" id="add-cart">Add to cart</button>
+        <button class="btn-secondary" id="order-wa">Order via WhatsApp</button>
+        <div class="cart-note" id="cart-note">
+          Cart here is just a preview – all orders are confirmed on WhatsApp.
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // PRODUCT DATA (all your sets here)
+    const products = {
+      "grey-crew": {
+        name: "Grey Minimal Crew Set",
+        sub: "Heavy fleece · Grey · Relaxed fit XS–XL",
+        old: "$50",
+        price: "$40",
+        pill: "SALE",
+        only: "Only 3 left in stock.",
+        images: ["product1.png","product3.png","product2.png"],
+      },
+      "grey-zip": {
+        name: "Classic Grey Zip Hoodie Set",
+        sub: "Zip hoodie + pants · XS–XL",
+        old: "$49",
+        price: "$39",
+        pill: "SALE",
+        only: "Low stock.",
+        images: ["product2.png","product1.png"],
+      },
+      "black-crew": {
+        name: "Black Minimal Crew Set",
+        sub: "Black · Tonal logo · XS–XL",
+        old: "$50",
+        price: "$40",
+        pill: "NEW",
+        only: "Moving fast.",
+        images: ["product3.png","product4.png"],
+      },
+      "black-zip": {
+        name: "Black Zip Hoodie Set",
+        sub: "Soft fleece · Black · XS–XL",
+        old: "$52",
+        price: "$41",
+        pill: "MOST LOVED",
+        only: "Only a few pieces left.",
+        images: ["product4.png","product3.png"],
+      },
+      "mocha": {
+        name: "Mocha Brown Lounge Set",
+        sub: "Heavy fleece · Warm brown · XS–XL",
+        old: "$55",
+        price: "$45",
+        pill: "SALE",
+        only: "New in.",
+        images: ["product5.png"],
+      },
+      "full-black": {
+        name: "Full Black Zip Hoodie Set",
+        sub: "Zip hoodie + pants · XS–XL",
+        old: "$50",
+        price: "$43",
+        pill: "EVERYDAY",
+        only: "Easy daily uniform.",
+        images: ["product7.png","product3.png"],
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id") || "grey-crew";
+    const p = products[id] || products["grey-crew"];
+
+    // fill content
+    document.getElementById("p-name").textContent = p.name;
+    document.getElementById("p-sub").textContent  = p.sub;
+    document.getElementById("p-old").textContent  = p.old;
+    document.getElementById("p-new").textContent  = p.price;
+    document.getElementById("p-pill").textContent = p.pill;
+    document.getElementById("size-note").textContent = p.only;
+
+    const mainImg = document.getElementById("main-img");
+    mainImg.src = p.images[0];
+    mainImg.alt = p.name;
+
+    // thumbnails
+    const thumbRow = document.getElementById("thumb-row");
+    p.images.forEach((src, i) => {
+      const t = document.createElement("div");
+      t.className = "thumb" + (i === 0 ? " active" : "");
+      t.dataset.src = src;
+      t.innerHTML = `<img src="${src}" alt="">`;
+      t.addEventListener("click", () => {
+        document.querySelectorAll(".thumb").forEach(x=>x.classList.remove("active"));
+        t.classList.add("active");
+        mainImg.src = src;
+      });
+      thumbRow.appendChild(t);
+    });
+
+    // sizes
+    const sizeRow = document.getElementById("size-row");
+    const sizes = ["XS","S","M","L","XL"];
+    let currentSize = "XS";
+    sizes.forEach((s,i)=>{
+      const btn = document.createElement("button");
+      btn.className = "size-btn" + (i===0 ? " active" : "");
+      btn.dataset.size = s;
+      btn.textContent = s;
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".size-btn").forEach(b=>b.classList.remove("active"));
+        btn.classList.add("active");
+        currentSize = s;
+      });
+      sizeRow.appendChild(btn);
+    });
+
+    // Add to cart note
+    const cartNote = document.getElementById("cart-note");
+    document.getElementById("add-cart").addEventListener("click", () => {
+      cartNote.textContent =
+        `“${p.name}” – size ${currentSize} added to cart (preview only).`;
+    });
+
+    // WhatsApp order
+    const waNumber = "+96181414496";
+    document.getElementById("order-wa").addEventListener("click", () => {
+      const msg = encodeURIComponent(
+        `Hi! I want to order the "${p.name}" in size ${currentSize}. Is it available and can we confirm delivery?`
+      );
+      window.location.href =
+        "https://wa.me/" + waNumber.replace(/[^0-9]/g,"") + "?text=" + msg;
+    });
+  </script>
+</body>
+</html>
