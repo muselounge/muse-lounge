@@ -2,99 +2,250 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Soft Lounge Shop – Women’s Sets</title>
+  <title>Muse Lounge – Clothing Shop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bg-dark: #050507;
-      --bg-light: #fdf7f3;
-      --accent: #f0b493;
-      --accent-soft: rgba(240, 180, 147, 0.16);
-      --text-main: #ffffff;
-      --text-dark: #262525;
-      --muted: #b2b2b2;
-      --card-bg: #ffffff;
-      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.12);
-      --radius-lg: 24px;
-      --radius-md: 18px;
-      --transition-fast: 0.25s ease;
+      --bg-dark:#050507;--bg-light:#fdf7f3;--accent:#f0b493;
+      --text-main:#ffffff;--text-dark:#262525;--muted:#b2b2b2;
+      --card-bg:#ffffff;--shadow-soft:0 18px 40px rgba(0,0,0,0.12);
+      --radius-lg:24px;--radius-md:18px;--transition-fast:.25s ease;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:"Poppins",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+      background:var(--bg-dark);color:var(--text-main);
+      -webkit-font-smoothing:antialiased;scroll-behavior:smooth;
+    }
+    img{max-width:100%;display:block;}
+
+    .nav{
+      position:fixed;left:0;right:0;top:0;
+      padding:18px 20px;
+      display:flex;justify-content:space-between;align-items:center;
+      backdrop-filter:blur(18px);
+      background:linear-gradient(to bottom,rgba(5,5,7,.9),rgba(5,5,7,0));
+      z-index:10;
+    }
+    .logo{
+      font-family:"Playfair Display",serif;
+      letter-spacing:.25em;font-size:14px;text-transform:uppercase;
+    }
+    .nav-circle{
+      width:26px;height:26px;border-radius:50%;
+      border:1px solid rgba(255,255,255,.4);
+      display:flex;align-items:center;justify-content:center;
+      font-size:14px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-main);
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      scroll-behavior: smooth;
+    .hero{
+      min-height:100vh;position:relative;padding:0 22px 80px;
+      display:flex;align-items:center;justify-content:center;
+      text-align:center;overflow:hidden;
     }
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
+    .hero-bg{
+      position:absolute;inset:0;
+      background:
+        linear-gradient(to bottom,rgba(0,0,0,.25),rgba(5,5,7,.9)),
+        url("hero.png");
+      background-size:cover;background-position:center;
+      filter:saturate(1.05);transform:scale(1.05);
+    }
+    .hero-inner{position:relative;max-width:540px;margin-top:72px;}
+    .hero-eyebrow{
+      letter-spacing:.2em;text-transform:uppercase;
+      font-size:11px;color:var(--muted);margin-bottom:10px;
+    }
+    .hero-title{
+      font-family:"Playfair Display",serif;
+      font-size:34px;line-height:1.1;margin-bottom:14px;
+    }
+    .hero-subtitle{
+      font-size:14px;color:rgba(255,255,255,.86);margin-bottom:26px;
+    }
+    .hero-btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:8px;padding:14px 32px;border-radius:999px;border:none;cursor:pointer;
+      background:#ffffff;color:#111;font-size:13px;font-weight:500;
+      letter-spacing:.12em;text-transform:uppercase;
+      box-shadow:0 14px 35px rgba(0,0,0,.45);
+    }
 
-    /* NAVBAR */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 20;
-      padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(
-        to bottom,
-        rgba(5, 5, 7, 0.9),
-        rgba(5, 5, 7, 0.0)
-      );
+    .tagline-section{
+      background:var(--bg-light);color:var(--text-dark);
+      padding:70px 24px 30px;text-align:center;
     }
-    .logo {
-      font-family: "Playfair Display", serif;
-      letter-spacing: 0.25em;
-      font-size: 14px;
-      text-transform: uppercase;
+    .tagline-text{
+      font-family:"Playfair Display",serif;
+      font-size:26px;line-height:1.25;
     }
-    .nav-icons {
-      display: flex;
-      gap: 14px;
-      font-size: 20px;
-      align-items: center;
-    }
-    .nav-circle {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-    }
-    .nav-burger {
-      width: 22px; height: 2px;
-      background: #fff;
-      border-radius: 999px;
-      position: relative;
-    }
-    .nav-burger::before,
-    .nav-burger::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      width: 22px; height: 2px;
-      background: #fff;
-      border-radius: 999px;
-    }
-    .nav-burger::before { top: -6px; }
-    .nav-burger::after { top: 6px; }
+    .tagline-text span{color:var(--accent);}
 
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      position: relative;
-      display: flex;
-      align
+    .intro-section{
+      background:var(--bg-light);padding:20px 24px 60px;text-align:center;
+    }
+    .intro-heading{
+      font-family:"Playfair Display",serif;
+      font-size:22px;margin-bottom:8px;
+    }
+    .intro-body{
+      font-size:14px;color:#6f6761;max-width:520px;margin:0 auto;
+    }
+
+    .products-section{background:#ffffff;padding:50px 16px 70px;}
+    .section-header{
+      max-width:960px;margin:0 auto 26px;
+      display:flex;justify-content:space-between;align-items:baseline;
+      gap:18px;flex-wrap:wrap;
+    }
+    .section-title{
+      font-family:"Playfair Display",serif;
+      font-size:22px;color:#222;
+    }
+    .section-subtitle{font-size:13px;color:#7a7a7a;}
+
+    .product-grid{
+      max-width:960px;margin:0 auto;
+      display:grid;grid-template-columns:1fr 1fr;gap:18px;
+    }
+    @media (max-width:720px){.product-grid{grid-template-columns:1fr;}}
+
+    .product-card{
+      background:var(--card-bg);border-radius:var(--radius-lg);
+      padding:14px 14px 18px;box-shadow:var(--shadow-soft);
+      display:flex;flex-direction:column;gap:8px;
+    }
+    .product-image{
+      border-radius:var(--radius-md);overflow:hidden;background:#f7f7f7;
+    }
+    .product-info{margin-top:4px;}
+    .product-name{
+      font-size:14px;font-weight:500;color:#252525;margin-bottom:2px;
+    }
+    .product-price{
+      font-size:14px;font-weight:600;color:#222;margin-bottom:6px;
+    }
+    .product-meta-row{
+      display:flex;justify-content:space-between;align-items:center;margin-top:4px;
+    }
+    .product-bag-btn{
+      width:32px;height:32px;border-radius:999px;border:none;
+      background:#f5f0ff;display:flex;align-items:center;justify-content:center;
+      font-size:16px;cursor:pointer;
+    }
+
+    .footer{
+      background:#050507;color:#777;
+      padding:26px 20px 40px;text-align:center;font-size:12px;
+    }
+  </style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="logo">MUSE LOUNGE</div>
+  <div class="nav-circle">🛍</div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">ONLINE CLOTHING SHOP</div>
+    <h1 class="hero-title">Discover Your Perfect Set</h1>
+    <p class="hero-subtitle">
+      Soft, relaxed silhouettes made to move with you – from coffee runs to late nights.
+    </p>
+    <button class="hero-btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+      SHOP NOW →
+    </button>
+  </div>
+</section>
+
+<section class="tagline-section">
+  <p class="tagline-text">
+    Crafted for <span>comfort</span>, finished for <span>style</span>.
+  </p>
+</section>
+
+<section class="intro-section">
+  <h2 class="intro-heading">Minimal colors, maximum daily wear.</h2>
+  <p class="intro-body">
+    Neutral tones, oversized fits and clean lines. Mix hoodies, sweatshirts and wide-leg
+    pants into easy sets that work for home, errands and travel.
+  </p>
+</section>
+
+<section class="products-section" id="products">
+  <div class="section-header">
+    <h2 class="section-title">Trending Sets</h2>
+    <p class="section-subtitle">Choose your favorite color and fit.</p>
+  </div>
+
+  <div class="product-grid">
+    <article class="product-card">
+      <div class="product-image">
+        <img src="product1.png" alt="Set 1" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-name">Muse Set – Black Zip Hoodie</h3>
+        <p class="product-price">$39.00</p>
+        <div class="product-meta-row">
+          <span>One size</span>
+          <button class="product-bag-btn">🛒</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="product-card">
+      <div class="product-image">
+        <img src="product2.png" alt="Set 2" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-name">Muse Set – Plum Relaxed</h3>
+        <p class="product-price">$37.00</p>
+        <div class="product-meta-row">
+          <span>One size</span>
+          <button class="product-bag-btn">🛒</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="product-card">
+      <div class="product-image">
+        <img src="product3.png" alt="Set 3" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-name">Muse Set – Charcoal Wide Leg</h3>
+        <p class="product-price">$42.00</p>
+        <div class="product-meta-row">
+          <span>One size</span>
+          <button class="product-bag-btn">🛒</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="product-card">
+      <div class="product-image">
+        <img src="product4.png" alt="Set 4" />
+      </div>
+      <div class="product-info">
+        <h3 class="product-name">Muse Set – Coffee Brown</h3>
+        <p class="product-price">$35.00</p>
+        <div class="product-meta-row">
+          <span>One size</span>
+          <button class="product-bag-btn">🛒</button>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<footer class="footer">
+  © 2025 Muse Lounge. All rights reserved.
+</footer>
+
+</body>
+</html>
