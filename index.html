@@ -2,503 +2,655 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Muse Lounge – Women's Lounge & Street Sets</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0;}
-    body{
-      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
-      background:#050509;
-      color:#f8f8f8;
-      min-height:100vh;
-    }
-    img{max-width:100%;display:block;}
+  <title>Muse Lounge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    .page{
-      max-width:1100px;
-      margin:0 auto;
-      padding:20px 16px 80px;
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #050509;
+      color: #f7f7f7;
+      line-height: 1.5;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 16px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .nav-pill {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 6px 14px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      opacity: 0.8;
     }
 
     /* HERO */
-    .hero{
-      position:relative;
-      border-radius:28px;
-      padding:28px 22px 26px;
-      overflow:hidden;
-      background:radial-gradient(circle at 0 0,#2c2c40,transparent 55%),
-                 radial-gradient(circle at 100% 0,#3d2e44,transparent 55%),
-                 #111119;
-    }
-    .hero::before,
-    .hero::after{
-      content:"";
-      position:absolute;
-      border-radius:999px;
-      filter:blur(26px);
-      opacity:.45;
-      pointer-events:none;
-    }
-    .hero::before{
-      width:220px;height:220px;
-      background:#f5d0ff33;
-      top:-60px;left:-40px;
-      animation:float1 8s ease-in-out infinite;
-    }
-    .hero::after{
-      width:260px;height:260px;
-      background:#7dd3fc33;
-      bottom:-80px;right:-30px;
-      animation:float2 10s ease-in-out infinite;
-    }
-    @keyframes float1{
-      0%,100%{transform:translateY(0);}
-      50%{transform:translateY(16px);}
-    }
-    @keyframes float2{
-      0%,100%{transform:translateY(0);}
-      50%{transform:translateY(-18px);}
+    .hero {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 16px 40px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: center;
     }
 
-    .hero-inner{
-      position:relative;
-      display:flex;
-      gap:20px;
-    }
-    .hero-copy{
-      flex:1.15;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      gap:18px;
-    }
-    .logo-pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:4px 11px;
-      border-radius:999px;
-      background:#181825;
-      border:1px solid #ffffff22;
-      font-size:11px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:#d4d4ff;
-    }
-    .logo-dot{
-      width:8px;height:8px;border-radius:999px;
-      background:linear-gradient(135deg,#f97316,#facc15);
-    }
-    .hero-title{
-      font-size:26px;
-      line-height:1.15;
-      letter-spacing:.03em;
-      text-transform:uppercase;
-    }
-    .hero-title span{
-      display:block;
-    }
-    .hero-title-accent{
-      font-weight:600;
-      background:linear-gradient(135deg,#f9fafb,#f97316);
-      -webkit-background-clip:text;
-      color:transparent;
-    }
-    .hero-sub{
-      font-size:13px;
-      color:#e5e5e5;
-      max-width:310px;
-    }
-    .hero-cta-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-    }
-    .btn{
-      border:none;
-      cursor:pointer;
-      border-radius:999px;
-      padding:11px 22px;
-      font-size:13px;
-      font-weight:500;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      transition:.2s;
-      white-space:nowrap;
-    }
-    .btn.primary{
-      background:linear-gradient(135deg,#f97316,#facc15);
-      color:#111827;
-      box-shadow:0 8px 25px rgba(15,23,42,.5);
-    }
-    .btn.primary:hover{
-      transform:translateY(-1px);
-      box-shadow:0 10px 32px rgba(15,23,42,.7);
-    }
-    .btn.ghost{
-      background:transparent;
-      color:#e5e7eb;
-      border:1px solid #374151;
-    }
-    .hero-mini{
-      font-size:11px;
-      color:#a5b4fc;
-    }
-    .hero-mini strong{color:#fef3c7;}
-
-    .hero-media{
-      flex:1;
-      max-width:50%;
-      border-radius:24px;
-      overflow:hidden;
-      border:1px solid #ffffff1a;
-      background:#020617;
-    }
-    .hero-media img{height:100%;object-fit:cover;}
-
-    /* PRODUCTS */
-    section{
-      margin-top:30px;
-    }
-    .section-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      gap:12px;
-      margin-bottom:16px;
-    }
-    .section-title{
-      font-size:18px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-    .section-sub{
-      font-size:12px;
-      color:#9ca3af;
+    .hero-copy-eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #c7c7c7;
+      margin-bottom: 12px;
     }
 
-    .products-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
-      gap:16px;
-    }
-    .card{
-      background:#0b0b11;
-      border-radius:18px;
-      padding:10px;
-      border:1px solid #111827;
-      display:flex;
-      flex-direction:column;
-      gap:9px;
-      position:relative;
-      overflow:hidden;
-    }
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:radial-gradient(circle at 0 0,#f9731611,transparent 55%);
-      opacity:0;
-      transition:.2s;
-      pointer-events:none;
-    }
-    .card:hover::before{opacity:1;}
-    .card-img{
-      border-radius:14px;
-      overflow:hidden;
-      background:#020617;
-      aspect-ratio:3/4;
-    }
-    .card-body{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-      font-size:12px;
-    }
-    .card-name{
-      font-weight:500;
-      color:#f9fafb;
-    }
-    .card-meta{
-      font-size:11px;
-      color:#9ca3af;
-    }
-    .card-bottom{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-top:4px;
-    }
-    .price{
-      font-weight:600;
-      font-size:13px;
-      color:#f97316;
-    }
-    .tag{
-      font-size:11px;
-      padding:3px 8px;
-      border-radius:999px;
-      border:1px solid #374151;
-      color:#e5e7eb;
+    .hero-title {
+      font-size: 32px;
+      line-height: 1.15;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      margin-bottom: 14px;
     }
 
-    footer{
-      margin-top:32px;
-      font-size:11px;
-      color:#6b7280;
-      text-align:center;
+    .hero-highlight {
+      background: linear-gradient(90deg,#f9e4c5,#f6b9ff);
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: 600;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: #c5c5c5;
+      max-width: 360px;
+      margin-bottom: 20px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .btn-primary {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 11px 22px;
+      border-radius: 99px;
+      background: radial-gradient(circle at top left,#f9e4c5,#f6b9ff 55%,#f7e1ff);
+      color: #1a1214;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.15);
+    }
+
+    .btn-ghost {
+      border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: #e6e6e6;
+      padding: 10px 18px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.85;
+    }
+
+    .hero-mini {
+      font-size: 11px;
+      color: #9a9a9a;
+    }
+
+    .hero-badge-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      font-size: 11px;
+      color: #bfbfbf;
+      flex-wrap: wrap;
+    }
+
+    .hero-pill {
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .hero-media {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .hero-shape {
+      position: absolute;
+      inset: 5%;
+      border-radius: 40px;
+      background: radial-gradient(circle at 0 0,#f9e4c5 0,#f6b9ff 35%,#050509 70%);
+      filter: blur(24px);
+      opacity: 0.75;
+      animation: floatGlow 12s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translate3d(-8px, 0, 0); }
+      50% { transform: translate3d(4px, -12px, 0) scale(1.03); }
+      100% { transform: translate3d(10px, 4px, 0) scale(0.98); }
+    }
+
+    .hero-card {
+      border-radius: 32px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: radial-gradient(circle at top,#0f0a10,#050509);
+      position: relative;
+      box-shadow:
+        0 28px 80px rgba(0,0,0,0.65),
+        0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .hero-card img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .hero-tag {
+      position: absolute;
+      left: 16px;
+      bottom: 16px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.66);
+      border: 1px solid rgba(255,255,255,0.26);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #f6f6f6;
     }
 
     /* INTRO OVERLAY */
-    .intro-overlay{
-      position:fixed;
-      inset:0;
-      background:radial-gradient(circle at 0 0,#020617,#000000 55%);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      opacity:0;
-      pointer-events:none;
-      transition:opacity .3s ease-out;
-      z-index:30;
-    }
-    .intro-overlay.active{
-      opacity:1;
-      pointer-events:auto;
-    }
-    .intro-content{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:6px;
-      text-transform:uppercase;
-      letter-spacing:.28em;
-      font-size:14px;
-    }
-    .intro-word{
-      padding:4px 18px;
-      border-radius:999px;
-      border:1px solid #4b5563;
-      background:#020617;
-      overflow:hidden;
-      position:relative;
-    }
-    .intro-text{
-      display:block;
-      animation:slideUp .9s cubic-bezier(.19,1,.22,1) forwards;
-      transform:translateY(120%);
-    }
-    .intro-word:nth-child(2) .intro-text{
-      animation-delay:.1s;
-    }
-    @keyframes slideUp{
-      to{transform:translateY(0);}
+    .intro-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top,#f3d9ff 0,#050509 50%,#050509 100%);
+      z-index: 999;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
 
-    @media (max-width:768px){
-      .page{padding:18px 14px 64px;}
-      .hero-inner{flex-direction:column;}
-      .hero-media{max-width:100%;height:260px;}
-      .hero-title{font-size:22px;}
-      .hero-sub{max-width:none;}
-      .section-header{flex-direction:column;align-items:flex-start;}
+    .intro-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .intro-text {
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      font-size: 18px;
+      font-weight: 600;
+      color: #050509;
+      padding-left: 0.28em;
+      animation: wordIn 1.1s ease forwards;
+    }
+
+    .intro-text span {
+      display: block;
+    }
+
+    @keyframes wordIn {
+      0% {
+        transform: translateY(22px);
+        opacity: 0;
+      }
+      40% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10px);
+        opacity: 0.0;
+      }
+    }
+
+    .intro-overlay.fade-out {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    /* PRODUCTS */
+    .products-section {
+      background: radial-gradient(circle at top,#15101b,#050509 55%);
+      border-radius: 32px 32px 0 0;
+      margin-top: 10px;
+    }
+
+    .products-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 28px 16px 40px;
+    }
+
+    .products-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .products-header h2 {
+      font-size: 16px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .products-header p {
+      font-size: 12px;
+      color: #bfbfbf;
+      max-width: 260px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4,minmax(0,1fr));
+      gap: 16px;
+    }
+
+    .product-card {
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(8,8,13,0.96);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-media {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .product-card:hover .product-media img {
+      transform: scale(1.04);
+    }
+
+    .product-tag {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.68);
+      border: 1px solid rgba(255,255,255,0.32);
+    }
+
+    .product-body {
+      padding: 11px 11px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+    }
+
+    .product-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .product-name {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .product-price {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .product-meta {
+      font-size: 11px;
+      color: #b7b7b7;
+    }
+
+    .product-cta {
+      margin-top: 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #f9e4c5;
+      opacity: 0.92;
+    }
+
+    /* FOOTER */
+    .footer {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 16px 26px;
+      font-size: 11px;
+      color: #8b8b8b;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 799px) {
+      .hero {
+        grid-template-columns: minmax(0,1fr);
+        padding-top: 8px;
+      }
+      .hero-title {
+        font-size: 26px;
+      }
+    }
+
+    @media (max-width: 699px) {
+      .grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+      .nav-pill {
+        display: none;
+      }
+      .hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .btn-primary,
+      .btn-ghost {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
+      .products-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Animated overlay when pressing Shop Now -->
+  <!-- INTRO ANIMATION -->
   <div id="introOverlay" class="intro-overlay">
-    <div class="intro-content">
-      <div class="intro-word"><span class="intro-text">Muse</span></div>
-      <div class="intro-word"><span class="intro-text">Lounge</span></div>
+    <div class="intro-text">
+      <span>Muse</span>
+      <span>Lounge</span>
     </div>
   </div>
 
   <div class="page">
-    <!-- HERO -->
-    <header class="hero">
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <div class="logo-pill">
-            <span class="logo-dot"></span>
-            MUSE LOUNGE · ONLINE CLOSET
-          </div>
-
-          <div>
-            <h1 class="hero-title">
-              <span>Soft lounge</span>
-              <span class="hero-title-accent">made for everyday girls</span>
-            </h1>
-            <p class="hero-sub">
-              Curated women’s sets, hoodies and sweats – premium vibes without luxury prices.
-              All pieces are ready to wear in Tyre & all over Lebanon.
-            </p>
-          </div>
-
-          <div class="hero-cta-row">
-            <button class="btn primary" id="shopNowBtn">
-              Shop now
-              <span>›</span>
-            </button>
-            <button class="btn ghost">View size guide</button>
-          </div>
-
-          <p class="hero-mini">
-            New drop • <strong>7 curated looks</strong> • 33–45&nbsp;$ per set
-          </p>
-        </div>
-
-        <div class="hero-media">
-          <img src="hero.png" alt="Muse Lounge main outfit" />
-        </div>
-      </div>
+    <!-- NAV -->
+    <header class="nav">
+      <div class="logo">Muse Lounge</div>
+      <div class="nav-pill">Cozy Womenswear · Online</div>
     </header>
 
-    <!-- PRODUCTS -->
-    <section id="products">
-      <div class="section-header">
-        <div>
-          <h2 class="section-title">New in muse lounge</h2>
-          <p class="section-sub">Select your set, DM on Instagram or WhatsApp to order.</p>
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="hero-copy-eyebrow">Fall / Winter Edit</div>
+        <h1 class="hero-title">
+          Elevated lounge sets for
+          <span class="hero-highlight">slow mornings & late nights.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Minimal cuts, soft fabrics, neutral tones. Curated outfits for women who want to look put together and stay comfortable.
+        </p>
+
+        <div class="hero-actions">
+          <button id="shopNowBtn" class="btn-primary">Shop now</button>
+          <button class="btn-ghost">New in · FW 24/25</button>
         </div>
-        <div class="section-sub">Prices in USD – cash or LBP rate of the day.</div>
+
+        <p class="hero-mini">Ships from Lebanon · Limited stock on each set.</p>
+
+        <div class="hero-badge-row">
+          <div class="hero-pill">Premium feel</div>
+          <div class="hero-pill">S–L friendly fits</div>
+          <div class="hero-pill">Everyday & travel</div>
+        </div>
       </div>
 
-      <div class="products-grid">
-        <!-- 1 -->
-        <article class="card">
-          <div class="card-img">
-            <img src="product1.png" alt="Black relaxed set with cropped top" loading="lazy">
-          </div>
-          <div class="card-body">
-            <div class="card-name">Jet Black Easy Set</div>
-            <div class="card-meta">Oversized shirt + wide pants · S–XL</div>
-            <div class="card-bottom">
-              <span class="price">$39</span>
-              <span class="tag">Best seller</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 2 -->
-        <article class="card">
-          <div class="card-img">
-            <img src="product2.png" alt="Charcoal relaxed lounge tracksuit" loading="lazy">
-          </div>
-          <div class="card-body">
-            <div class="card-name">Charcoal Coffee Set</div>
-            <div class="card-meta">Light fabric · perfect for daily errands</div>
-            <div class="card-bottom">
-              <span class="price">$37</span>
-              <span class="tag">Everyday</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 3 -->
-        <article class="card">
-          <div class="card-img">
-            <img src="product3.png" alt="Grey hoodie and sweatpants" loading="lazy">
-          </div>
-          <div class="card-body">
-            <div class="card-name">Cloud Grey Hoodie Set</div>
-            <div class="card-meta">Soft fleece inside · S–XXL</div>
-            <div class="card-bottom">
-              <span class="price">$42</span>
-              <span class="tag">Cozy</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 4 -->
-        <article class="card">
-          <div class="card-img">
-            <img src="product4.png" alt="Black hoodie graphic set" loading="lazy">
-          </div>
-          <div class="card-body">
-            <div class="card-name">Midnight Graphic Set</div>
-            <div class="card-meta">Zip hoodie + straight pants</div>
-            <div class="card-bottom">
-              <span class="price">$45</span>
-              <span class="tag">Limited</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 5 -->
-        <article class="card">
-          <div class="card-img">
-            <img src="product5.png" alt="Brown comfy sweatshirt set" loading="lazy">
-          </div>
-          <div class="card-body">
-            <div class="card-name">Warm Cocoa Set</div>
-            <div class="card-meta">Rich brown tone · tall girl friendly</div>
-            <div class="card-bottom">
-              <span class="price">$41</span>
-              <span class="tag">Fall fav</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 7 -->
-        <article class="card">
-          <div class="card-img">
-            <img src="product7.png" alt="Full black wide-leg sweatshirt set" loading="lazy">
-          </div>
-          <div class="card-body">
-            <div class="card-name">All Black Everyday Set</div>
-            <div class="card-meta">Minimal logo · straight leg pants</div>
-            <div class="card-bottom">
-              <span class="price">$38</span>
-              <span class="tag">Staple</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- 8 -->
-        <article class="card">
-          <div class="card-img">
-            <img src="product8.png" alt="Grey hoodie zip set" loading="lazy">
-          </div>
-          <div class="card-body">
-            <div class="card-name">Silver Zip Hoodie Set</div>
-            <div class="card-meta">Relaxed fit · easy to style sneakers</div>
-            <div class="card-bottom">
-              <span class="price">$36</span>
-              <span class="tag">Lightweight</span>
-            </div>
-          </div>
-        </article>
+      <div class="hero-media">
+        <div class="hero-shape"></div>
+        <div class="hero-card">
+          <img src="hero.png" alt="Muse Lounge hero look">
+          <div class="hero-tag">Muse Lounge · Daily Set</div>
+        </div>
       </div>
     </section>
 
-    <footer>
-      Muse Lounge · Online women’s clothing shop · Tyre, Lebanon
+    <!-- PRODUCTS -->
+    <section id="products" class="products-section">
+      <div class="products-inner">
+        <div class="products-header">
+          <h2>Sets in stock</h2>
+          <p>Choose your favourite. Each look is a full set (top + pants). Quantities are limited per colour.</p>
+        </div>
+
+        <div class="grid">
+          <!-- 1 -->
+          <article class="product-card">
+            <div class="product-media">
+              <img src="product1.png" alt="Black relaxed lounge set">
+              <div class="product-tag">Best seller</div>
+            </div>
+            <div class="product-body">
+              <div class="product-row">
+                <div class="product-name">Noir Lounge Set</div>
+                <div class="product-price">$39</div>
+              </div>
+              <div class="product-meta">Relaxed black set · zipper hoodie + wide pants.</div>
+              <div class="product-cta">Tap to order via WhatsApp</div>
+            </div>
+          </article>
+
+          <!-- 2 -->
+          <article class="product-card">
+            <div class="product-media">
+              <img src="product2.png" alt="Grey zipper lounge set">
+              <div class="product-tag">New</div>
+            </div>
+            <div class="product-body">
+              <div class="product-row">
+                <div class="product-name">Cloud Zip Set</div>
+                <div class="product-price">$42</div>
+              </div>
+              <div class="product-meta">Soft grey hoodie + jogger fit · everyday essential.</div>
+              <div class="product-cta">Tap to order via WhatsApp</div>
+            </div>
+          </article>
+
+          <!-- 3 -->
+          <article class="product-card">
+            <div class="product-media">
+              <img src="product3.png" alt="Brown cozy lounge set">
+              <div class="product-tag">Limited</div>
+            </div>
+            <div class="product-body">
+              <div class="product-row">
+                <div class="product-name">Cocoa Cozy Set</div>
+                <div class="product-price">$45</div>
+              </div>
+              <div class="product-meta">Rich brown tone · perfect with sneakers & mini bag.</div>
+              <div class="product-cta">Tap to order via WhatsApp</div>
+            </div>
+          </article>
+
+          <!-- 4 -->
+          <article class="product-card">
+            <div class="product-media">
+              <img src="product4.png" alt="Black cozy lounge set">
+              <div class="product-tag">Everyday</div>
+            </div>
+            <div class="product-body">
+              <div class="product-row">
+                <div class="product-name">Midnight Cozy Set</div>
+                <div class="product-price">$37</div>
+              </div>
+              <div class="product-meta">Lightweight black crewneck + pants for daily wear.</div>
+              <div class="product-cta">Tap to order via WhatsApp</div>
+            </div>
+          </article>
+
+          <!-- 5 -->
+          <article class="product-card">
+            <div class="product-media">
+              <img src="product5.png" alt="Grey hoodie lounge set">
+              <div class="product-tag">Soft touch</div>
+            </div>
+            <div class="product-body">
+              <div class="product-row">
+                <div class="product-name">Ash Hoodie Set</div>
+                <div class="product-price">$40</div>
+              </div>
+              <div class="product-meta">Full grey tracksuit · oversized hoodie + relaxed pants.</div>
+              <div class="product-cta">Tap to order via WhatsApp</div>
+            </div>
+          </article>
+
+          <!-- 7 -->
+          <article class="product-card">
+            <div class="product-media">
+              <img src="product7.png" alt="Black MIU MIU style set">
+              <div class="product-tag">Sparkle</div>
+            </div>
+            <div class="product-body">
+              <div class="product-row">
+                <div class="product-name">Studio Logo Set</div>
+                <div class="product-price">$41</div>
+              </div>
+              <div class="product-meta">Logo detail on chest & leg · straight leg pants.</div>
+              <div class="product-cta">Tap to order via WhatsApp</div>
+            </div>
+          </article>
+
+          <!-- 8 -->
+          <article class="product-card">
+            <div class="product-media">
+              <img src="product8.png" alt="Black Lacoste style set">
+              <div class="product-tag">Clean</div>
+            </div>
+            <div class="product-body">
+              <div class="product-row">
+                <div class="product-name">Iconic Street Set</div>
+                <div class="product-price">$33</div>
+              </div>
+              <div class="product-meta">Minimal logo, relaxed cut · perfect airport outfit.</div>
+              <div class="product-cta">Tap to order via WhatsApp</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <span>© Muse Lounge. All rights reserved.</span>
+      <span>Curated womens sets · Lebanon based.</span>
     </footer>
   </div>
 
   <script>
-    const overlay = document.getElementById('introOverlay');
-    const shopBtn = document.getElementById('shopNowBtn');
-    const productsSection = document.getElementById('products');
+    const intro = document.getElementById("introOverlay");
+    const shopBtn = document.getElementById("shopNowBtn");
+    const products = document.getElementById("products");
 
-    function playIntroAndScroll(){
-      overlay.classList.add('active');
-      // restart text animation
-      document.querySelectorAll('.intro-text').forEach(el=>{
-        el.style.animation='none';
-        void el.offsetHeight;
-        el.style.animation='';
-      });
-      setTimeout(()=>{
-        overlay.classList.remove('active');
-        productsSection.scrollIntoView({behavior:'smooth'});
+    // First load animation
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        intro.classList.add("fade-out");
+        setTimeout(() => intro.classList.remove("active","fade-out"), 500);
       }, 1100);
-    }
+    });
 
-    shopBtn.addEventListener('click', playIntroAndScroll);
+    // Shop Now click – show animation then go to products
+    shopBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      intro.classList.add("active");
+      intro.classList.remove("fade-out");
+
+      setTimeout(() => {
+        intro.classList.add("fade-out");
+        setTimeout(() => {
+          intro.classList.remove("active","fade-out");
+          products.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 450);
+      }, 900);
+    });
   </script>
 </body>
 </html>
