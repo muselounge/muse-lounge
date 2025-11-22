@@ -10,24 +10,16 @@
   />
   <style>
     :root {
-      --bg: #050506;
-      --bg-soft: #161217;
-      --card: rgba(14, 12, 16, 0.95);
-      --card-soft: rgba(22, 18, 24, 0.9);
-      --border-subtle: rgba(255, 255, 255, 0.06);
-      --text-main: #f7f3ee;
-      --text-soft: #ada6b5;
-      --accent-1: #f9b37a;
-      --accent-2: #f46b9f;
-      --accent-3: #7b7bff;
-      --pill-bg: rgba(255, 255, 255, 0.06);
-      --chip-bg: rgba(255, 255, 255, 0.04);
-      --chip-border: rgba(255, 255, 255, 0.09);
-      --tag-soft: rgba(249, 179, 122, 0.15);
+      --bg: #050505;
+      --text-main: #ffffff;
+      --text-soft: #d2d2d2;
+      --accent: #ffffff;
       --whatsapp: #25d366;
-      --radius-xl: 28px;
-      --radius-card: 24px;
-      --shadow-soft: 0 26px 80px rgba(0, 0, 0, 0.75);
+      --card-bg: #0f0f10;
+      --card-border: rgba(255,255,255,0.08);
+      --tag-bg: rgba(255,255,255,0.08);
+      --radius-card: 22px;
+      --shadow-soft: 0 20px 60px rgba(0,0,0,0.85);
     }
 
     * {
@@ -39,11 +31,7 @@
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         sans-serif;
-      background:
-        radial-gradient(circle at 0% 0%, #2a1a11 0, transparent 40%),
-        radial-gradient(circle at 100% 0%, #281729 0, transparent 40%),
-        radial-gradient(circle at 50% 100%, #171727 0, transparent 40%),
-        var(--bg);
+      background: var(--bg);
       color: var(--text-main);
     }
 
@@ -57,345 +45,200 @@
       cursor: pointer;
     }
 
-    .page {
+    /* ============ HERO ============ */
+
+    .hero {
+      position: relative;
       min-height: 100vh;
-      max-width: 1080px;
+      width: 100%;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.75)),
+        url("hero.png") center center / cover no-repeat;
+      filter: saturate(1.05);
+      transform: scale(1.02);
+      transform-origin: center;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 16px 16px 110px;
+      padding: 18px 18px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    /* BLURRED BACKGROUND ORB */
-    .orb {
-      position: fixed;
-      inset: auto;
-      width: 340px;
-      height: 340px;
-      background: radial-gradient(circle, var(--accent-2), transparent 60%);
-      opacity: 0.32;
-      filter: blur(20px);
-      right: -80px;
-      top: -60px;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    /* TOP BAR */
-    .top-bar-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      padding-bottom: 8px;
-      margin-bottom: 14px;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(
-        to bottom,
-        rgba(5, 5, 6, 0.96),
-        rgba(5, 5, 6, 0.86),
-        transparent
-      );
-    }
-
-    .top-bar {
+    .hero-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
     }
 
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .brand-wordmark {
+    .hero-logo {
       font-family: "Times New Roman", "Georgia", serif;
-      font-size: 19px;
-      letter-spacing: 0.18em;
+      font-size: 20px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
     }
 
-    .brand-sub {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-soft);
-    }
-
-    .pill {
-      padding: 9px 18px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 0 0, #ffffff0f, #ffffff03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      color: var(--text-soft);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .pill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #38ff8b;
-      box-shadow: 0 0 12px #38ff8b;
-    }
-
-    /* NAV CHIPS */
-    .nav-chips {
+    .hero-icons {
       display: flex;
-      gap: 6px;
-      padding-top: 12px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      align-items: center;
+      gap: 14px;
     }
 
-    .nav-chip {
-      padding: 7px 14px;
+    .hero-icon-circle {
+      width: 26px;
+      height: 26px;
       border-radius: 999px;
-      border: 1px solid transparent;
-      background: transparent;
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-soft);
-      flex: 0 0 auto;
+      border: 1px solid rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .hero-menu {
+      width: 24px;
+      height: 18px;
       position: relative;
     }
-
-    .nav-chip::after {
-      content: "";
+    .hero-menu span {
       position: absolute;
-      inset: auto 16px -3px;
-      height: 1px;
+      left: 0;
+      right: 0;
+      height: 1.5px;
       border-radius: 999px;
-      background: linear-gradient(90deg, transparent, #ffffff66, transparent);
-      opacity: 0;
+      background: #fff;
+    }
+    .hero-menu span:nth-child(1) { top: 2px; }
+    .hero-menu span:nth-child(2) { top: 8px; width: 70%; right: auto; }
+    .hero-menu span:nth-child(3) { bottom: 2px; }
+
+    .hero-center {
+      text-align: center;
+      margin-top: 80px;
+      margin-bottom: 60px;
     }
 
-    .nav-chip.active {
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.04);
-    }
-
-    .nav-chip.active::after {
-      opacity: 1;
-    }
-
-    /* HERO */
-    .hero {
-      margin-top: 4px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 18px;
-      align-items: center;
-    }
-
-    @media (max-width: 780px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 18px;
-      }
-    }
-
-    .hero-text {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .eyebrow {
+    .hero-eyebrow {
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.22em;
-      color: var(--text-soft);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .eyebrow-pill {
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      font-size: 10px;
-      letter-spacing: 0.16em;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 12px;
     }
 
     .hero-title {
+      font-family: "Times New Roman", "Georgia", serif;
       font-size: 32px;
       line-height: 1.1;
-      font-weight: 650;
-    }
-
-    .hero-title span.accent {
-      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      margin: 0 0 10px;
     }
 
     .hero-sub {
       font-size: 14px;
-      color: var(--text-soft);
-      max-width: 440px;
+      max-width: 380px;
+      margin: 0 auto 24px;
+      color: rgba(255,255,255,0.82);
     }
 
-    .hero-cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .btn-primary {
-      border: none;
-      border-radius: 999px;
-      padding: 12px 22px;
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-      color: #060606;
-      font-weight: 650;
-      box-shadow: 0 22px 45px rgba(0, 0, 0, 0.85);
-    }
-
-    .btn-secondary {
-      border-radius: 999px;
-      padding: 11px 18px;
-      font-size: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.02);
-      color: var(--text-soft);
+    .hero-btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 6px;
-    }
-
-    .hero-badge {
-      font-size: 11px;
-      padding: 6px 12px;
+      justify-content: center;
+      padding: 13px 32px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: var(--text-soft);
+      border: none;
+      background: #ffffff;
+      color: #111111;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 600;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.9);
     }
 
-    /* HERO IMAGE */
-    .hero-media {
-      position: relative;
-    }
-
-    .hero-card {
-      border-radius: 34px;
-      background: radial-gradient(circle at 10% 0%, #ffffff0f, #000000f0);
-      box-shadow: var(--shadow-soft);
-      padding: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hero-image-wrap {
-      border-radius: 26px;
-      overflow: hidden;
-      position: relative;
-      isolation: isolate;
-    }
-
-    .hero-image-wrap::before {
-      content: "";
-      position: absolute;
-      inset: auto -20%;
-      height: 60%;
-      background: radial-gradient(circle at 50% 0, #000000, transparent 60%);
-      opacity: 0.9;
-      z-index: 1;
-    }
-
-    .hero-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      transform: scale(1.02);
-    }
-
-    .hero-tag-strip {
-      position: absolute;
-      left: 16px;
-      bottom: 16px;
-      right: 16px;
-      z-index: 2;
+    .hero-scroll {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      gap: 12px;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: #f9f5ee;
     }
 
-    .hero-tag-strip span {
-      padding: 5px 10px;
+    .scroll-shell {
+      width: 24px;
+      height: 40px;
       border-radius: 999px;
-      background: rgba(0, 0, 0, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(14px);
-      white-space: nowrap;
+      border: 1.5px solid rgba(255,255,255,0.7);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 6px;
+      opacity: 0.85;
     }
 
-    .hero-tag-strip span:nth-child(2) {
-      background: linear-gradient(120deg, #000000e6, #4c3bff66);
+    .scroll-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #ffffff;
+      animation: scrollDot 1.4s infinite;
     }
 
-    /* SECTION TITLES */
+    @keyframes scrollDot {
+      0% { transform: translateY(0); opacity: 0.9; }
+      100% { transform: translateY(14px); opacity: 0; }
+    }
+
+    /* ============ CONTENT AREA ============ */
+
+    .content {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px 18px 100px;
+      background: radial-gradient(circle at top, #191919, #050505 60%);
+    }
+
     section {
-      margin-top: 30px;
+      margin-top: 26px;
     }
 
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 10px;
     }
 
     .section-title {
       font-size: 13px;
-      font-weight: 600;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--text-soft);
+      color: #a7a7a7;
     }
 
     .section-pill {
       font-size: 11px;
-      color: var(--text-soft);
+      color: #bdbdbd;
       padding: 4px 10px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255,255,255,0.06);
     }
 
     /* TRENDING */
+
     .trending-list {
       display: flex;
       gap: 14px;
@@ -406,22 +249,11 @@
 
     .trend-card {
       min-width: 220px;
-      background: var(--card);
+      background: var(--card-bg);
       border-radius: var(--radius-card);
       box-shadow: var(--shadow-soft);
       padding: 8px 8px 10px;
-      border: 1px solid var(--border-subtle);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .trend-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 0 0, #ffffff10, transparent 58%);
-      opacity: 0.5;
-      pointer-events: none;
+      border: 1px solid var(--card-border);
     }
 
     .trend-image {
@@ -429,36 +261,36 @@
       overflow: hidden;
       height: 180px;
       margin-bottom: 8px;
-      position: relative;
     }
 
     .trend-image img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
       display: block;
+      object-fit: cover;
     }
 
     .trend-label {
       font-size: 10px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--text-soft);
+      color: #a8a8a8;
       margin-bottom: 4px;
     }
 
     .trend-name {
-      font-weight: 600;
       font-size: 14px;
+      font-weight: 600;
       margin-bottom: 2px;
     }
 
     .trend-note {
       font-size: 12px;
-      color: var(--text-soft);
+      color: #b8b8b8;
     }
 
-    /* FILTERS */
+    /* FILTERS + PRODUCTS */
+
     .filters-row {
       display: flex;
       gap: 8px;
@@ -471,62 +303,48 @@
       padding: 7px 14px;
       border-radius: 999px;
       font-size: 11px;
-      background: var(--chip-bg);
-      border: 1px solid var(--chip-border);
-      color: var(--text-soft);
-      flex: 0 0 auto;
       text-transform: uppercase;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #bdbdbd;
+      flex: 0 0 auto;
     }
 
     .filter-chip.active {
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
-      border-color: transparent;
-      color: #050505;
+      background: #ffffff;
+      color: #111111;
+      border-color: #ffffff;
       font-weight: 600;
     }
 
-    /* PRODUCTS */
     .product-list {
       display: grid;
-      grid-template-columns: minmax(0, 1fr);
+      grid-template-columns: minmax(0,1fr);
       gap: 16px;
     }
 
     @media (min-width: 860px) {
       .product-list {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-columns: minmax(0,1fr) minmax(0,1fr);
       }
     }
 
     .product-card {
-      background: var(--card-soft);
+      background: var(--card-bg);
       border-radius: var(--radius-card);
+      border: 1px solid var(--card-border);
       box-shadow: var(--shadow-soft);
       padding: 10px 10px 12px;
-      border: 1px solid var(--border-subtle);
       display: flex;
       flex-direction: column;
       gap: 8px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .product-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at 0% 0%, #ffffff12, transparent 60%);
-      opacity: 0.7;
-      pointer-events: none;
     }
 
     .product-media {
-      border-radius: 20px;
+      border-radius: 18px;
       overflow: hidden;
       height: 260px;
-      position: relative;
-      isolation: isolate;
     }
 
     .product-media img {
@@ -537,9 +355,7 @@
     }
 
     @media (min-width: 860px) {
-      .product-media {
-        height: 320px;
-      }
+      .product-media { height: 320px; }
     }
 
     .p-header-row {
@@ -558,7 +374,7 @@
     .p-meta {
       margin: 0;
       font-size: 13px;
-      color: var(--text-soft);
+      color: #b7b7b7;
     }
 
     .p-badge {
@@ -567,9 +383,9 @@
       letter-spacing: 0.16em;
       padding: 5px 9px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      color: var(--text-soft);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #f5f5f5;
       white-space: nowrap;
     }
 
@@ -583,14 +399,14 @@
     .tag {
       padding: 4px 9px;
       border-radius: 999px;
-      background: var(--tag-soft);
+      background: var(--tag-bg);
       font-size: 11px;
-      color: #f9b37a;
+      color: #f3f3f3;
     }
 
     .tag.dark {
-      background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
-      color: #050505;
+      background: #ffffff;
+      color: #111111;
     }
 
     .price-row {
@@ -607,7 +423,7 @@
 
     .price span {
       font-size: 11px;
-      color: var(--text-soft);
+      color: #b7b7b7;
       margin-left: 4px;
     }
 
@@ -623,18 +439,19 @@
       align-items: center;
       font-size: 13px;
       font-weight: 650;
-      box-shadow: 0 16px 32px rgba(13, 182, 82, 0.65);
       text-transform: uppercase;
       letter-spacing: 0.12em;
+      box-shadow: 0 16px 32px rgba(13,182,82,0.65);
     }
 
     .p-note {
       font-size: 12px;
-      color: var(--text-soft);
+      color: #b7b7b7;
       margin: 4px 0 0;
     }
 
     /* FLOATING WHATSAPP BAR */
+
     .wa-bar {
       position: fixed;
       left: 0;
@@ -643,7 +460,7 @@
       display: flex;
       justify-content: center;
       pointer-events: none;
-      z-index: 40;
+      z-index: 20;
     }
 
     .wa-bar-inner {
@@ -653,12 +470,20 @@
       margin: 0 16px;
       padding: 8px 10px;
       border-radius: 999px;
-      background: rgba(6, 6, 7, 0.96);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.9);
+      background: rgba(7,7,7,0.96);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.9);
       display: flex;
       align-items: center;
       gap: 10px;
+    }
+
+    .wa-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #25d366;
+      box-shadow: 0 0 14px #25d366;
     }
 
     .wa-bar-text {
@@ -675,7 +500,7 @@
 
     .wa-bar-sub {
       font-size: 11px;
-      color: var(--text-soft);
+      color: #b7b7b7;
     }
 
     .wa-bar-btn {
@@ -690,321 +515,254 @@
       font-weight: 650;
       white-space: nowrap;
     }
-
-    .wa-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      background: #25d366;
-      box-shadow: 0 0 14px #25d366;
-    }
   </style>
 </head>
 <body>
-  <div class="orb"></div>
-
-  <div class="page">
-    <!-- STICKY TOP BAR -->
-    <div class="top-bar-wrap">
-      <header class="top-bar">
-        <div class="brand">
-          <div class="brand-wordmark">MUSE LOUNGE</div>
-          <div class="brand-sub">LOUNGE SETS • LEBANON</div>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-top">
+        <div class="hero-logo">MUSE LOUNGE</div>
+        <div class="hero-icons">
+          <div class="hero-icon-circle">IG</div>
+          <div class="hero-menu">
+            <span></span><span></span><span></span>
+          </div>
         </div>
-        <div class="pill">
-          <span class="pill-dot"></span>
-          SAME-DAY · SELECT AREAS
-        </div>
-      </header>
+      </div>
 
-      <nav class="nav-chips">
-        <button class="nav-chip active" data-scroll="#home">Home</button>
-        <button class="nav-chip" data-scroll="#trending">Trending</button>
-        <button class="nav-chip" data-scroll="#shop">Shop</button>
-      </nav>
+      <div class="hero-center">
+        <div class="hero-eyebrow">LOUNGE DROP 01</div>
+        <h1 class="hero-title">Comfort Is Power.</h1>
+        <p class="hero-sub">
+          Soft, minimal lounge sets for airport looks, coffee runs and nights in.
+          Curated pieces only – no random stock, no fake logos.
+        </p>
+        <button class="hero-btn" data-scroll="#shop">SHOP NOW →</button>
+      </div>
+
+      <div class="hero-scroll">
+        <div class="scroll-shell">
+          <div class="scroll-dot"></div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- HERO -->
-    <main id="home">
-      <section class="hero">
-        <div class="hero-text">
-          <div class="eyebrow">
-            LOUNGE DROP 01
-            <span class="eyebrow-pill">CURATED • NO FAST FASHION CHAOS</span>
+  <!-- CONTENT (TRENDING + SHOP) -->
+  <div class="content">
+    <!-- TRENDING -->
+    <section id="trending">
+      <div class="section-header">
+        <h2 class="section-title">TRENDING NOW</h2>
+        <div class="section-pill">Real orders · live picks</div>
+      </div>
+
+      <div class="trending-list">
+        <article class="trend-card">
+          <div class="trend-image">
+            <img src="product1.png" alt="Grey minimal set" />
           </div>
-          <h1 class="hero-title">
-            <span class="accent">Airport-ready</span> lounge sets for coffee
-            runs, sleepovers & nights in.
-          </h1>
-          <p class="hero-sub">
-            Soft, minimal fits only. No random stock, no fake logos – just
-            pieces you actually want to repeat every weekend. Delivered across
-            Lebanon via WhatsApp.
-          </p>
-          <div class="hero-cta-row">
-            <button class="btn-primary" data-scroll="#shop">
-              Shop the drop →
+          <div class="trend-label">Most ordered</div>
+          <div class="trend-name">Grey Minimal Crew Set</div>
+          <div class="trend-note">Relaxed fit, clean minimal vibe.</div>
+        </article>
+
+        <article class="trend-card">
+          <div class="trend-image">
+            <img src="product4.png" alt="Black hoodie set" />
+          </div>
+          <div class="trend-label">Airport favorite</div>
+          <div class="trend-name">Black Zip Hoodie Set</div>
+          <div class="trend-note">Soft heavy fleece for travel days.</div>
+        </article>
+
+        <article class="trend-card">
+          <div class="trend-image">
+            <img src="product5.png" alt="Brown lounge set" />
+          </div>
+          <div class="trend-label">New in</div>
+          <div class="trend-name">Mocha Brown Lounge Set</div>
+          <div class="trend-note">Warm brown tone for everyday chic.</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SHOP -->
+    <section id="shop">
+      <div class="section-header">
+        <h2 class="section-title">ALL LOUNGE SETS</h2>
+        <div class="section-pill">Tap a set · order via WhatsApp</div>
+      </div>
+
+      <div class="filters-row">
+        <button class="filter-chip active" data-filter="all">All sets</button>
+        <button class="filter-chip" data-filter="zip">Zip hoodies</button>
+        <button class="filter-chip" data-filter="crewneck">Crewnecks</button>
+      </div>
+
+      <div class="product-list">
+        <!-- 1 -->
+        <article class="product-card" data-type="crewneck">
+          <div class="product-media">
+            <img src="product1.png" alt="Grey Minimal Crew Set" />
+          </div>
+          <div class="p-header-row">
+            <div>
+              <h3 class="p-title">Grey Minimal Crew Set</h3>
+              <p class="p-meta">Grey · Tonal logo · XS–XL</p>
+            </div>
+            <div class="p-badge">Clean minimal</div>
+          </div>
+          <div class="p-tags">
+            <span class="tag">Perfect with chunky sneakers</span>
+          </div>
+          <div class="price-row">
+            <div class="price">$40<span> · cash on delivery</span></div>
+            <button class="whatsapp-btn"
+              data-product="Grey Minimal Crew Set"
+              data-price="40">
+              WhatsApp to order
             </button>
-            <button class="btn-secondary" data-scroll="#trending">
-              View trending looks ⟳
+          </div>
+          <p class="p-note">Relaxed fit – stay true to size.</p>
+        </article>
+
+        <!-- 2 -->
+        <article class="product-card" data-type="zip">
+          <div class="product-media">
+            <img src="product2.png" alt="Classic Grey Zip Hoodie Set" />
+          </div>
+          <div class="p-header-row">
+            <div>
+              <h3 class="p-title">Classic Grey Zip Hoodie Set</h3>
+              <p class="p-meta">Zip hoodie + pants · XS–XL</p>
+            </div>
+            <div class="p-badge">Everyday staple</div>
+          </div>
+          <div class="p-tags">
+            <span class="tag">Soft fleece</span>
+            <span class="tag">Throw-on and go</span>
+          </div>
+          <div class="price-row">
+            <div class="price">$39<span> · cash on delivery</span></div>
+            <button class="whatsapp-btn"
+              data-product="Classic Grey Zip Hoodie Set"
+              data-price="39">
+              WhatsApp to order
             </button>
           </div>
-          <div class="hero-badges">
-            <div class="hero-badge">XS–XL • relaxed fits</div>
-            <div class="hero-badge">Cash on delivery</div>
-            <div class="hero-badge">Local delivery · Lebanon</div>
+          <p class="p-note">Size down if you want it snug.</p>
+        </article>
+
+        <!-- 3 -->
+        <article class="product-card" data-type="crewneck">
+          <div class="product-media">
+            <img src="product3.png" alt="Black Minimal Crew Set" />
           </div>
-        </div>
-
-        <div class="hero-media">
-          <div class="hero-card">
-            <div class="hero-image-wrap">
-              <img src="hero.png" alt="Lounge set model" class="hero-image" />
+          <div class="p-header-row">
+            <div>
+              <h3 class="p-title">Black Minimal Crew Set</h3>
+              <p class="p-meta">Black · Tonal logo · XS–XL</p>
             </div>
-            <div class="hero-tag-strip">
-              <span>COFFEE-RUN CHIC</span>
-              <span>AIRPORT-READY • DROP 01</span>
-            </div>
+            <div class="p-badge">All-black moment</div>
           </div>
-        </div>
-      </section>
+          <div class="p-tags">
+            <span class="tag">Everyday black</span>
+          </div>
+          <div class="price-row">
+            <div class="price">$40<span> · cash on delivery</span></div>
+            <button class="whatsapp-btn"
+              data-product="Black Minimal Crew Set"
+              data-price="40">
+              WhatsApp to order
+            </button>
+          </div>
+          <p class="p-note">If between sizes, size up.</p>
+        </article>
 
-      <!-- TRENDING -->
-      <section id="trending">
-        <div class="section-header">
-          <h2 class="section-title">Trending now</h2>
-          <div class="section-pill">Real orders · live picks</div>
-        </div>
+        <!-- 4 -->
+        <article class="product-card" data-type="zip">
+          <div class="product-media">
+            <img src="product4.png" alt="Black Zip Hoodie Set" />
+          </div>
+          <div class="p-header-row">
+            <div>
+              <h3 class="p-title">Black Zip Hoodie Set</h3>
+              <p class="p-meta">Soft fleece · Black · XS–XL</p>
+            </div>
+            <div class="p-badge">Most ordered</div>
+          </div>
+          <div class="p-tags">
+            <span class="tag dark">Perfect for travel</span>
+            <span class="tag">Airport ready</span>
+          </div>
+          <div class="price-row">
+            <div class="price">$41<span> · cash on delivery</span></div>
+            <button class="whatsapp-btn"
+              data-product="Black Zip Hoodie Set"
+              data-price="41">
+              WhatsApp to order
+            </button>
+          </div>
+          <p class="p-note">Relaxed fit – size down for snug fit.</p>
+        </article>
 
-        <div class="trending-list">
-          <article class="trend-card">
-            <div class="trend-image">
-              <img src="product1.png" alt="Grey minimal set" />
+        <!-- 5 -->
+        <article class="product-card" data-type="crewneck">
+          <div class="product-media">
+            <img src="product5.png" alt="Mocha Brown Lounge Set" />
+          </div>
+          <div class="p-header-row">
+            <div>
+              <h3 class="p-title">Mocha Brown Lounge Set</h3>
+              <p class="p-meta">Heavy fleece · Warm brown · XS–XL</p>
             </div>
-            <div class="trend-label">Most ordered</div>
-            <div class="trend-name">Grey Minimal Crew Set</div>
-            <div class="trend-note">Relaxed fit, clean minimal vibe.</div>
-          </article>
+            <div class="p-badge">New in</div>
+          </div>
+          <div class="p-tags">
+            <span class="tag dark">Perfect for travel</span>
+            <span class="tag">Warm brown tone</span>
+          </div>
+          <div class="price-row">
+            <div class="price">$45<span> · cash on delivery</span></div>
+            <button class="whatsapp-btn"
+              data-product="Mocha Brown Lounge Set"
+              data-price="45">
+              WhatsApp to order
+            </button>
+          </div>
+          <p class="p-note">Crop top not included.</p>
+        </article>
 
-          <article class="trend-card">
-            <div class="trend-image">
-              <img src="product4.png" alt="Black hoodie set" />
+        <!-- 6 -->
+        <article class="product-card" data-type="zip">
+          <div class="product-media">
+            <img src="product7.png" alt="Full Black Zip Hoodie Set" />
+          </div>
+          <div class="p-header-row">
+            <div>
+              <h3 class="p-title">Full Black Zip Hoodie Set</h3>
+              <p class="p-meta">Zip hoodie + pants · XS–XL</p>
             </div>
-            <div class="trend-label">Airport favorite</div>
-            <div class="trend-name">Black Zip Hoodie Set</div>
-            <div class="trend-note">Soft heavy fleece for travel days.</div>
-          </article>
-
-          <article class="trend-card">
-            <div class="trend-image">
-              <img src="product5.png" alt="Brown lounge set" />
-            </div>
-            <div class="trend-label">New in</div>
-            <div class="trend-name">Mocha Brown Lounge Set</div>
-            <div class="trend-note">Warm brown tone for everyday chic.</div>
-          </article>
-        </div>
-      </section>
-
-      <!-- SHOP -->
-      <section id="shop">
-        <div class="section-header">
-          <h2 class="section-title">All lounge sets</h2>
-          <div class="section-pill">Tap a set · order via WhatsApp</div>
-        </div>
-
-        <div class="filters-row">
-          <button class="filter-chip active" data-filter="all">All sets</button>
-          <button class="filter-chip" data-filter="zip">Zip hoodies</button>
-          <button class="filter-chip" data-filter="crewneck">Crewnecks</button>
-        </div>
-
-        <div class="product-list">
-          <!-- 1: GREY MINIMAL CREW -->
-          <article class="product-card" data-type="crewneck">
-            <div class="product-media">
-              <img src="product1.png" alt="Grey Minimal Crew Set" />
-            </div>
-            <div class="p-header-row">
-              <div>
-                <h3 class="p-title">Grey Minimal Crew Set</h3>
-                <p class="p-meta">Grey · Tonal logo · XS–XL</p>
-              </div>
-              <div class="p-badge">Clean minimal</div>
-            </div>
-            <div class="p-tags">
-              <span class="tag">Perfect with chunky sneakers</span>
-            </div>
-            <div class="price-row">
-              <div class="price">
-                $40<span> · cash on delivery</span>
-              </div>
-              <button
-                class="whatsapp-btn"
-                data-product="Grey Minimal Crew Set"
-                data-price="40"
-              >
-                WhatsApp to order
-              </button>
-            </div>
-            <p class="p-note">Relaxed fit – stay true to size.</p>
-          </article>
-
-          <!-- 2: CLASSIC GREY ZIP -->
-          <article class="product-card" data-type="zip">
-            <div class="product-media">
-              <img src="product2.png" alt="Classic Grey Zip Hoodie Set" />
-            </div>
-            <div class="p-header-row">
-              <div>
-                <h3 class="p-title">Classic Grey Zip Hoodie Set</h3>
-                <p class="p-meta">Zip hoodie + pants · XS–XL</p>
-              </div>
-              <div class="p-badge">Everyday staple</div>
-            </div>
-            <div class="p-tags">
-              <span class="tag">Soft fleece</span>
-              <span class="tag">Throw-on and go</span>
-            </div>
-            <div class="price-row">
-              <div class="price">
-                $39<span> · cash on delivery</span>
-              </div>
-              <button
-                class="whatsapp-btn"
-                data-product="Classic Grey Zip Hoodie Set"
-                data-price="39"
-              >
-                WhatsApp to order
-              </button>
-            </div>
-            <p class="p-note">Size down if you want it snug.</p>
-          </article>
-
-          <!-- 3: BLACK MINIMAL CREW -->
-          <article class="product-card" data-type="crewneck">
-            <div class="product-media">
-              <img src="product3.png" alt="Black Minimal Crew Set" />
-            </div>
-            <div class="p-header-row">
-              <div>
-                <h3 class="p-title">Black Minimal Crew Set</h3>
-                <p class="p-meta">Black · Tonal logo · XS–XL</p>
-              </div>
-              <div class="p-badge">All-black moment</div>
-            </div>
-            <div class="p-tags">
-              <span class="tag">Everyday black</span>
-            </div>
-            <div class="price-row">
-              <div class="price">
-                $40<span> · cash on delivery</span>
-              </div>
-              <button
-                class="whatsapp-btn"
-                data-product="Black Minimal Crew Set"
-                data-price="40"
-              >
-                WhatsApp to order
-              </button>
-            </div>
-            <p class="p-note">If between sizes, size up.</p>
-          </article>
-
-          <!-- 4: BLACK ZIP HOODIE SET -->
-          <article class="product-card" data-type="zip">
-            <div class="product-media">
-              <img src="product4.png" alt="Black Zip Hoodie Set" />
-            </div>
-            <div class="p-header-row">
-              <div>
-                <h3 class="p-title">Black Zip Hoodie Set</h3>
-                <p class="p-meta">Soft fleece · Black · XS–XL</p>
-              </div>
-              <div class="p-badge">Most ordered</div>
-            </div>
-            <div class="p-tags">
-              <span class="tag dark">Perfect for travel</span>
-              <span class="tag">Throw on, airport ready</span>
-            </div>
-            <div class="price-row">
-              <div class="price">
-                $41<span> · cash on delivery</span>
-              </div>
-              <button
-                class="whatsapp-btn"
-                data-product="Black Zip Hoodie Set"
-                data-price="41"
-              >
-                WhatsApp to order
-              </button>
-            </div>
-            <p class="p-note">Relaxed fit – size down for snug fit.</p>
-          </article>
-
-          <!-- 5: MOCHA BROWN LOUNGE SET -->
-          <article class="product-card" data-type="crewneck">
-            <div class="product-media">
-              <img src="product5.png" alt="Mocha Brown Lounge Set" />
-            </div>
-            <div class="p-header-row">
-              <div>
-                <h3 class="p-title">Mocha Brown Lounge Set</h3>
-                <p class="p-meta">Heavy fleece · Warm brown · XS–XL</p>
-              </div>
-              <div class="p-badge">New in</div>
-            </div>
-            <div class="p-tags">
-              <span class="tag dark">Perfect for travel</span>
-              <span class="tag">Warm brown tone</span>
-            </div>
-            <div class="price-row">
-              <div class="price">
-                $45<span> · cash on delivery</span>
-              </div>
-              <button
-                class="whatsapp-btn"
-                data-product="Mocha Brown Lounge Set"
-                data-price="45"
-              >
-                WhatsApp to order
-              </button>
-            </div>
-            <p class="p-note">Crop top not included.</p>
-          </article>
-
-          <!-- 6: FULL BLACK ZIP SET -->
-          <article class="product-card" data-type="zip">
-            <div class="product-media">
-              <img src="product7.png" alt="Full Black Zip Hoodie Set" />
-            </div>
-            <div class="p-header-row">
-              <div>
-                <h3 class="p-title">Full Black Zip Hoodie Set</h3>
-                <p class="p-meta">Zip hoodie + pants · XS–XL</p>
-              </div>
-              <div class="p-badge">Daily uniform</div>
-            </div>
-            <div class="p-tags">
-              <span class="tag">Easy to style</span>
-            </div>
-            <div class="price-row">
-              <div class="price">
-                $43<span> · cash on delivery</span>
-              </div>
-              <button
-                class="whatsapp-btn"
-                data-product="Full Black Zip Hoodie Set"
-                data-price="43"
-              >
-                WhatsApp to order
-              </button>
-            </div>
-            <p class="p-note">Works with any sneakers.</p>
-          </article>
-        </div>
-      </section>
-    </main>
+            <div class="p-badge">Daily uniform</div>
+          </div>
+          <div class="p-tags">
+            <span class="tag">Easy to style</span>
+          </div>
+          <div class="price-row">
+            <div class="price">$43<span> · cash on delivery</span></div>
+            <button class="whatsapp-btn"
+              data-product="Full Black Zip Hoodie Set"
+              data-price="43">
+              WhatsApp to order
+            </button>
+          </div>
+          <p class="p-note">Works with any sneakers.</p>
+        </article>
+      </div>
+    </section>
   </div>
 
   <!-- FLOATING WHATSAPP BAR -->
@@ -1020,19 +778,16 @@
   </div>
 
   <script>
-    // Smooth scroll + nav highlight
-    const navChips = document.querySelectorAll(".nav-chip");
-    navChips.forEach((chip) => {
-      chip.addEventListener("click", () => {
-        const target = document.querySelector(chip.dataset.scroll);
+    // Smooth scroll
+    document.querySelectorAll("[data-scroll]").forEach((el) => {
+      el.addEventListener("click", () => {
+        const target = document.querySelector(el.dataset.scroll);
         if (target) {
           window.scrollTo({
-            top: target.offsetTop - 70,
+            top: target.offsetTop - 60,
             behavior: "smooth",
           });
         }
-        navChips.forEach((c) => c.classList.remove("active"));
-        chip.classList.add("active");
       });
     });
 
@@ -1055,7 +810,7 @@
       });
     });
 
-    // WhatsApp logic
+    // WhatsApp
     const waNumber = "+96181414496";
 
     function openWhatsApp(customMsg) {
